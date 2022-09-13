@@ -31,6 +31,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # state management & storage
+  get: ^4.6.5
+  get_storage: ^2.0.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -75,17 +78,22 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Gilroy
+      fonts:
+        - asset: assets/fonts/Gilroy-Regular.otf
+    - family: Gilroy-Medium
+      fonts:
+        - asset: assets/fonts/Gilroy-Medium.otf
+    - family: Gilroy-SemiBold
+      fonts:
+        - asset: assets/fonts/Gilroy-SemiBold.otf
+    - family: Gilroy-Bold
+      fonts:
+        - asset: assets/fonts/Gilroy-Bold.otf
+    - family: Gilroy-ExtraBold
+      fonts:
+        - asset: assets/fonts/Gilroy-ExtraBold.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
