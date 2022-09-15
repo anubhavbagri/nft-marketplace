@@ -18,8 +18,14 @@ class AppDimensions {
   static final double buttonPaddingBottom = SizeConfig.safeVertical! * 0.02;
   static final double buttonPaddingLeft = SizeConfig.safeHorizontal! * .08;
   static final double buttonPaddingRight = SizeConfig.safeHorizontal! * .08;
-}
 
-final SizedBox wSizedBox2 = SizedBox(
-  width: SizeConfig.safeHorizontal! * 0.02,
-);
+  // to give horizontal spacing between elements (for rows)
+  static final SizedBox wSizedBox2 = SizedBox(
+    width: SizeConfig.safeHorizontal! * 0.02,
+  );
+
+  // to give vertical spacing between elements (for columns)
+  static final SizedBox hSizedBox2 = SizedBox(
+    height: SizeConfig.safeVertical! * 0.02,
+  );
+}

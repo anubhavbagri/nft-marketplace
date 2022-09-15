@@ -17,6 +17,7 @@ class PrimaryButton extends StatelessWidget {
   final double? iconSize;
   final Widget? widget;
   final Color? buttonColor;
+
   const PrimaryButton({
     super.key,
     required this.buttonText,
@@ -45,7 +46,9 @@ class PrimaryButton extends StatelessWidget {
           ),
         ),
         minimumSize: MaterialStateProperty.all(Size(width, height)),
-        backgroundColor: MaterialStateProperty.all(AppColors.primary),
+        backgroundColor: buttonColor != null
+            ? MaterialStateProperty.all(buttonColor)
+            : MaterialStateProperty.all(AppColors.primary),
         // elevation: MaterialStateProperty.all(3),
         shadowColor: MaterialStateProperty.all(Colors.transparent),
       ),
@@ -66,7 +69,9 @@ class PrimaryButton extends StatelessWidget {
               )
             else
               widget != null ? widget! : const SizedBox.shrink(),
-            // wSizedBox2,
+            (iconToSet != null || widget != null)
+                ? AppDimensions.wSizedBox2
+                : const SizedBox.shrink(),
             Text(
               buttonText,
               style: AppTextStyles.body1().copyWith(
