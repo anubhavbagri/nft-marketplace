@@ -13,11 +13,11 @@ Future<void> main() async {
   runApp(const MyApp());
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp]); // auto rotate off
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   const SystemUiOverlayStyle(
-  //     statusBarColor: Colors.transparent,
-  //   ),
-  // );
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ),
+  );
 }
 
 // Future<void> loadServices() async {}
