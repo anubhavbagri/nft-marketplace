@@ -1,0 +1,32 @@
+<svg width="428" height="926" viewBox="0 0 428 926" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="filter0_b_35_116" x="-100" y="-100" width="628" height="1126"
+            filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feGaussianBlur in="BackgroundImage" stdDeviation="50" />
+            <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_35_116" />
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_35_116"
+                result="shape" />
+        </filter>
+        <radialGradient id="paint0_radial_35_116" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+            gradientTransform="translate(-124.269 388.332) rotate(67.5365) scale(669.61 705.188)">
+            <stop stop-color="#B839BD" />
+            <stop offset="0.296875" stop-color="#E80DA7" stop-opacity="0.27" />
+            <stop offset="0.5" stop-color="#A14EC7" stop-opacity="0.35" />
+            <stop offset="0.708333" stop-color="#6783E2" stop-opacity="0" />
+            <stop offset="1" stop-color="#5098EC" stop-opacity="0" />
+        </radialGradient>
+        <clipPath id="clip0_35_116">
+            <rect width="428" height="926" rx="25" fill="white" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#clip0_35_116)">
+        <rect width="428" height="926" rx="25" fill="black" />
+        <rect x="-140" y="359.303" width="523.687" height="487.607"
+            transform="rotate(-45 -140 359.303)" fill="url(#paint0_radial_35_116)"
+            fill-opacity="0.5" />
+        <g filter="url(#filter0_b_35_116)">
+            <rect width="428" height="926" fill="white" fill-opacity="0.05" />
+        </g>
+    </g>
+</svg>
