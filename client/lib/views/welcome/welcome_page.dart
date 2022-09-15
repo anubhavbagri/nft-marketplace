@@ -1,5 +1,8 @@
 import 'package:client/constants/app_assets.dart';
+import 'package:client/constants/app_strings.dart';
+import 'package:client/themes/app_colors.dart';
 import 'package:client/themes/app_dimensions.dart';
+import 'package:client/themes/app_text_styles.dart';
 import 'package:client/themes/background.dart';
 import 'package:client/utils/size_config.dart';
 import 'package:client/widgets/primary_button.dart';
@@ -16,36 +19,63 @@ class WelcomePage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          child: Center(
-            child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppDimensions.hSizedBox4,
+              Padding(
+                padding: EdgeInsets.only(left: AppDimensions.buttonPaddingLeft),
+                child: SvgPicture.asset(
                   AppAssets.lightWordmark,
                 ),
-                // AppDimensions.hSizedBox2,
-                PrimaryButton(
-                  iconToSet: Icons.account_balance_wallet,
-                  buttonText: 'Create new wallet',
-                  width: SizeConfig.safeHorizontal! * 0.8,
-                  height: SizeConfig.safeVertical! * 0.02,
-                  onPressed: () {},
-                ),
-                AppDimensions.hSizedBox2,
-                PrimaryButton(
-                  widget: SvgPicture.asset(
-                    AppAssets.metamaskIcon,
-                    height: SizeConfig.safeHorizontal! * 0.04,
-                    width: SizeConfig.safeVertical! * 0.02,
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(left: SizeConfig.safeHorizontal! * 0.1),
+                child: Text(
+                  AppStrings.subtitle,
+                  style: AppTextStyles.h1().copyWith(
+                    fontFamily: AppTextStyles.gilroyBold,
+                    foreground: Paint()..shader = AppColors.purpleGradient,
                   ),
-                  buttonText: 'Connect to wallet',
-                  width: SizeConfig.safeHorizontal! * 0.8,
-                  height: SizeConfig.safeVertical! * 0.02,
-                  onPressed: () {},
-                )
-              ],
-            ),
+                ),
+              ),
+              const Spacer(),
+              Column(
+                children: [
+                  Align(
+                    child: PrimaryButton(
+                      iconToSet: Icons.account_balance_wallet,
+                      buttonText: AppStrings.create,
+                      width: AppDimensions.primaryButtonWidth,
+                      height: AppDimensions.primaryButtonHeight,
+                      onPressed: () {},
+                    ),
+                  ),
+                  AppDimensions.hSizedBox2,
+                  Text(
+                    AppStrings.existing,
+                    style: AppTextStyles.body2(),
+                  ),
+                  AppDimensions.hSizedBox1,
+                  Align(
+                    child: PrimaryButton(
+                      widget: SvgPicture.asset(
+                        AppAssets.metamaskIcon,
+                        height: SizeConfig.safeHorizontal! * 0.04,
+                        width: SizeConfig.safeVertical! * 0.02,
+                      ),
+                      buttonText: AppStrings.connect,
+                      width: AppDimensions.primaryButtonWidth,
+                      height: AppDimensions.primaryButtonHeight,
+                      onPressed: () {},
+                    ),
+                  )
+                ],
+              ),
+              AppDimensions.hSizedBox3,
+            ],
           ),
         ),
       ),

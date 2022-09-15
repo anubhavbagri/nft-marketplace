@@ -41,8 +41,7 @@ class PrimaryButton extends StatelessWidget {
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius:
-                // BorderRadius.circular(AppDimensions.buttonBorderRadius),
-                BorderRadius.circular(5),
+                BorderRadius.circular(AppDimensions.buttonBorderRadius),
           ),
         ),
         minimumSize: MaterialStateProperty.all(Size(width, height)),
@@ -74,7 +73,7 @@ class PrimaryButton extends StatelessWidget {
                 : const SizedBox.shrink(),
             Text(
               buttonText,
-              style: AppTextStyles.body1().copyWith(
+              style: AppTextStyles.h5().copyWith(
                 fontFamily: AppTextStyles.gilroySemiBold,
                 color: buttonTextColor ?? AppColors.white,
               ),
