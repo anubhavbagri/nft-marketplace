@@ -6,6 +6,8 @@ error exibit__PriceMustBeAboveZero();
 error exibit__NotApprovedForMarketPlace();
 error exibit__AlreadyListed(address nftAddress, uint256 tokenId);
 error exibit__NotOwner();
+error exibit__NotListed(address nftAddress, uint256 tokenId);
+error exibit__PriceNotMet(address nftAddress, uint256 tokenId, uint256 price);
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
@@ -23,6 +25,7 @@ contract exibit {
     );
 
     mapping(address => mapping(uint256 => Listing)) private s_listings;
+    mapping(address => uint256) private s_proceeds;
 
     modifier notListed(
         address nftAddress,
@@ -49,12 +52,21 @@ contract exibit {
         _;
     }
 
+    modifier isListed(address nftAddress, uint256 tokenId) {
+        Listing memory listing = s_listings[nftAddress][tokenId];
+        if (listing.price <= 0) {
+            revert exibit__NotListed(nftAddress, tokenId);
+        }
+        _;
+    }
+
     function listItem(
         address nftAddress,
         uint256 tokenId,
         uint256 price
     )
         external
+        // address tokenId
         notListed(nftAddress, tokenId, msg.sender)
         isOwner(nftAddress, tokenId, msg.sender)
     {
@@ -68,5 +80,25 @@ contract exibit {
         }
         s_listings[nftAddress][tokenId] = Listing(price, msg.sender);
         emit ItemListed(msg.sender, nftAddress, tokenId, price);
+    }
+
+    function buyItems(address nftAddress, uint256 tokenId)
+        external
+        payable
+        isListed(nftAddress, tokenId)
+    {
+        Listing memory listedItem = s_listings[nftAddress][tokenId];
+        if (msg.value < listedItem.price) {
+            revert exibit__PriceNotMet(nftAddress, tokenId, listedItem.price);
+        }
+        s_proceeds[listedItem.seller] =
+            s_proceeds[listedItem.seller] +
+            msg.value;
+        delete (s_listings[nftAddress][tokenId]);
+        IERC721(nftAddress).transferFrom(
+            listedItem.seller,
+            msg.sender,
+            tokenId
+        );
     }
 }
