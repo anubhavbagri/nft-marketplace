@@ -8,6 +8,7 @@ import 'package:client/utils/size_config.dart';
 import 'package:client/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -50,7 +51,9 @@ class WelcomePage extends StatelessWidget {
                       buttonText: AppStrings.create,
                       width: AppDimensions.primaryButtonWidth,
                       height: AppDimensions.primaryButtonHeight,
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed("/wallet");
+                      },
                     ),
                   ),
                   AppDimensions.hSizedBox2,
