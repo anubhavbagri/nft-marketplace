@@ -1,5 +1,6 @@
 import 'package:client/constants/app_assets.dart';
 import 'package:client/constants/app_strings.dart';
+import 'package:client/controllers/wallet_controller.dart';
 import 'package:client/themes/app_colors.dart';
 import 'package:client/themes/app_dimensions.dart';
 import 'package:client/themes/app_text_styles.dart';
@@ -8,8 +9,9 @@ import 'package:client/utils/size_config.dart';
 import 'package:client/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends GetView<WalletController> {
   const WelcomePage({Key? key}) : super(key: key);
 
   @override
@@ -69,7 +71,9 @@ class WelcomePage extends StatelessWidget {
                       buttonText: AppStrings.connect,
                       width: AppDimensions.primaryButtonWidth,
                       height: AppDimensions.primaryButtonHeight,
-                      onPressed: () {},
+                      onPressed: () async {
+                        await controller.connect();
+                      },
                     ),
                   )
                 ],
