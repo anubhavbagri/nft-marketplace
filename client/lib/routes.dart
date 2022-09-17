@@ -1,3 +1,4 @@
+import 'package:client/views/main/discover_page.dart';
 import 'package:client/views/wallet/wallet_page.dart';
 import 'package:client/views/welcome/welcome_page.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,11 @@ class AppRoutes {
     GetPage(
         name: '/wallet',
         page: () => const WalletPage(),
+        transition: Transition.fadeIn,
+        transitionDuration: const Duration(milliseconds: 500)),
+    GetPage(
+        name: '/discover',
+        page: () => const DiscoverPage(),
         transition: Transition.fadeIn,
         transitionDuration: const Duration(milliseconds: 500)),
   ];
