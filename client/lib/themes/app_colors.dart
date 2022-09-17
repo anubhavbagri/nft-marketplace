@@ -5,6 +5,8 @@ class AppColors {
   const AppColors._();
 
   static final primary = HexColor("#7D36D4");
+  static final secondary = HexColor("#C68DFF");
+  static final tertiary = HexColor("#381858");
   static final white = HexColor("#FFFFFF");
   static final black = HexColor("#000000");
 

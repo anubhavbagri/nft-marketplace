@@ -1,3 +1,4 @@
+import 'package:client/bindings/main_screen_binding.dart';
 import 'package:client/bindings/wallet_binding.dart';
 import 'package:client/routes.dart';
 import 'package:client/themes/app_themes.dart';
@@ -25,6 +26,7 @@ Future<void> main() async {
 
 void loadDependencies() {
   WalletBinding().dependencies();
+  MainScreenBinding().dependencies();
 }
 
 class MyApp extends StatelessWidget {
