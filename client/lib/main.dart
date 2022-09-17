@@ -1,3 +1,4 @@
+import 'package:client/bindings/main_screen_binding.dart';
 import 'package:client/routes.dart';
 import 'package:client/themes/app_themes.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,9 @@ Future<void> main() async {
 
 // Future<void> loadServices() async {}
 
-void loadDependencies() {}
+void loadDependencies() {
+  MainScreenBinding().dependencies();
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

@@ -1,3 +1,4 @@
+import 'package:client/themes/app_colors.dart';
 import 'package:client/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,7 +24,7 @@ class BottomBar extends StatelessWidget {
     );
 
     return BottomAppBar(
-      color: Colors.white,
+      color: Colors.black,
       elevation: 0,
       shape: CircularNotchedRectangle(),
       notchMargin: 3,
@@ -65,8 +66,7 @@ class BottomBar extends StatelessWidget {
       required Icon icon,
       required String title,
       required BuildContext context}) {
-    Color TabColor =
-        index == this.index ? Colors.black : Colors.grey.withOpacity(0.5);
+    Color TabColor = index == this.index ? AppColors.primary : AppColors.white;
 
     return Expanded(
       child: InkWell(

@@ -9,19 +9,19 @@ class MainScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    WidgetsBinding.instance.addObserver(new LifecycleEventHandler(
-        resumeCallBack: () async => refreshContent()));
+    // WidgetsBinding.instance.addObserver(
+    //     LifecycleEventHandler(resumeCallBack: () async => refreshContent()));
   }
 
-  void refreshContent() {
-    String date = GetStorage().read("prevDate");
-    DateTime dateTime = DateTime.parse(date).toLocal();
-    var currentDay = DateTime.now().day;
+  // void refreshContent() {
+  //   String date = GetStorage().read("prevDate");
+  //   DateTime dateTime = DateTime.parse(date).toLocal();
+  //   var currentDay = DateTime.now().day;
 
-    if (dateTime.day != currentDay) {
-      Get.offNamed('/priority-task');
-    }
-  }
+  //   if (dateTime.day != currentDay) {
+  //     // Get.offNamed('/priority-task');
+  //   }
+  // }
 
   final _tabIndex = 0.obs;
   get tabIndex => this._tabIndex.value;

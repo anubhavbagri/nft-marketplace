@@ -189,7 +189,7 @@ class _WalletPageState extends State<WalletPage> {
                             AppDimensions.hSizedBox2,
                             PrimaryButton(
                               onPressed: () {
-                                Get.offNamed('/discover');
+                                Get.offNamed('/main-screen');
                               },
                               buttonText: 'Get Some MATIC',
                               width: AppDimensions.primaryButtonWidth,

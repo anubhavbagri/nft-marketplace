@@ -1,4 +1,5 @@
 import 'package:client/controllers/main_screen_controller.dart';
+import 'package:client/themes/app_colors.dart';
 import 'package:client/utils/size_config.dart';
 import 'package:client/views/main/discover_page.dart';
 import 'package:client/views/main/favorite_page.dart';
@@ -31,8 +32,13 @@ class MainScreen extends GetView<MainScreenController> {
           onChangedTab: controller.changeTabIndex,
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.chat_bubble),
+          backgroundColor: AppColors.black,
+          shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 1)),
           onPressed: () {},
+          child: const Icon(
+            Icons.add,
+            // size: 40,
+          ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
