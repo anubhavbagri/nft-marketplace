@@ -8,6 +8,7 @@ import 'package:client/utils/size_config.dart';
 import 'package:client/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:lottie/lottie.dart';
 
@@ -187,7 +188,9 @@ class _WalletPageState extends State<WalletPage> {
                             ),
                             AppDimensions.hSizedBox2,
                             PrimaryButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.offNamed('/discover');
+                              },
                               buttonText: 'Get Some MATIC',
                               width: AppDimensions.primaryButtonWidth,
                               height: AppDimensions.primaryButtonHeight,
