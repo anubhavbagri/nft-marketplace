@@ -6,17 +6,6 @@ import "./createCollection.sol";
 contract Marketplace {
     // ** User ** //
 
-    // // To store user
-    // struct User {
-    //     string name;
-    //     string image;
-    //     string twitterUrl;
-    //     string websiteUrl;
-    // }
-
-    // // To store users (address => string)
-    // mapping(address => User) public users;
-
     // On user creation
     event UserCreated(
         address uAddress,
@@ -59,7 +48,7 @@ contract Marketplace {
         string memory metadata_
     ) public {
         address cAddress = address(
-            new CustomCollection(name_, symbol_, metadata_, msg.sender)
+            new CreateCollection(name_, symbol_, metadata_, msg.sender)
         );
 
         // Log event to subgraph
@@ -79,7 +68,7 @@ contract Marketplace {
             "Marketplace : marketPlaceTransferFrom -> Caller is not contract"
         );
 
-        CustomCollection(cAddress).safeTransferFrom(
+        CreateCollection(cAddress).safeTransferFrom(
             nftOwner,
             newOwner,
             tokenId

@@ -22,7 +22,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
     // Store collection Metadata
     string collectionMetadataURI;
 
-    address payable marketPlaceAddress;
+    address payable exibitMarketAddress;
 
     // On Collection creation
     constructor(
@@ -33,7 +33,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
     ) ERC721(name_, symbol_) {
         owner = payable(owner_);
 
-        marketPlaceAddress = payable(msg.sender);
+        exibitMarketAddress = payable(msg.sender);
 
         collectionMetadataURI = collectionMetadata_;
     }
@@ -42,7 +42,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
 
     // Required NFT data in contract
     struct NFT {
-        bool forSale;
+        bool saleStatus;
         ListingType listingType;
         uint256 price;
         uint256 royalty;
@@ -132,7 +132,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         string memory image_,
         string memory properties_,
         string memory metadata_,
-        bool forSale_,
+        bool saleStatus,
         bool isFixedPrice_,
         uint256 price_,
         uint256 royalty_,
@@ -156,7 +156,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         // But for fixed price nft transfer can be only done by marketplace
         if (isFixedPrice_) {
             // ERC721 approve marketplace to manage owner's current token
-            approve(marketPlaceAddress, tokenId);
+            approve(exibitMarketAddress, tokenId);
         }
 
         // Set unlockableContent
@@ -164,7 +164,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
 
         // Store nft in marketplace
         nfts[tokenId] = NFT({
-            forSale: forSale_,
+            saleStatus: saleStatus,
             listingType: isFixedPrice_
                 ? ListingType.FixedPrice
                 : ListingType.Bidding,
@@ -207,7 +207,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
             "CustomCollection : placeBid -> NFT is listed for bids only"
         );
         require(
-            nft.forSale,
+            nft.saleStatus,
             "CustomCollection : buyFixedPriceNFT -> NFT is not for sale"
         );
         require(
@@ -219,7 +219,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         owner.transfer(((nft.price * nft.royalty) / 100));
 
         // Marketplace gets 1% commission
-        marketPlaceAddress.transfer(nft.price / 100);
+        exibitMarketAddress.transfer(nft.price / 100);
 
         // Tranfer remaining eth to current owner
         payable(ownerOf(tokenId)).transfer(
@@ -227,7 +227,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         );
 
         // Transfer nft to msg.sender
-        Marketplace(marketPlaceAddress).marketPlaceTransferFrom(
+        Marketplace(exibitMarketAddress).marketPlaceTransferFrom(
             address(this),
             ownerOf(tokenId),
             msg.sender,
@@ -235,10 +235,10 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         );
 
         // New owner has to approve marketplace to manage his token
-        approve(marketPlaceAddress, tokenId);
+        approve(exibitMarketAddress, tokenId);
 
         // Unlist item
-        nfts[tokenId].forSale = false;
+        nfts[tokenId].saleStatus = false;
 
         // Log event to subgraph
         emit NFTEvent(
@@ -315,7 +315,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         owner.transfer(((bids[tokenId][to_] * nfts[tokenId].royalty) / 100));
 
         // Marketplace gets 1% commission
-        marketPlaceAddress.transfer(bids[tokenId][to_] / 100);
+        exibitMarketAddress.transfer(bids[tokenId][to_] / 100);
 
         // Tranfer remaining eth to current owner
         payable(ownerOf(tokenId)).transfer(
@@ -353,7 +353,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
     function modifyListingMechanism(
         uint256 tokenId,
         bool setFixPrice,
-        bool forSale,
+        bool saleStatus,
         uint256 newPrice
     )
         public
@@ -368,8 +368,8 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
                 nfts[tokenId].listingType = ListingType.Bidding;
                 nfts[tokenId].price = newPrice;
             } else {
-                // Change price and forSale status
-                nfts[tokenId].forSale = forSale;
+                // Change price and saleStatus status
+                nfts[tokenId].saleStatus = saleStatus;
                 nfts[tokenId].price = newPrice;
             }
         }
