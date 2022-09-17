@@ -82,7 +82,7 @@ class _WalletPageState extends State<WalletPage> {
                             AppColors.primary.withOpacity(0.1),
                             AppColors.primary.withOpacity(0.1),
                           ],
-                          stops: [
+                          stops: const [
                             0.3,
                             1,
                           ]),
@@ -94,7 +94,7 @@ class _WalletPageState extends State<WalletPage> {
                           AppColors.white,
                           AppColors.black,
                         ],
-                        stops: [0.06, 0.95, 1],
+                        stops: const [0.06, 0.95, 1],
                       ),
                     ),
                   ),
