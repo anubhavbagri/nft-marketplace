@@ -1,163 +1,92 @@
 // SPDX-License-Identifier: MIT
-
 pragma solidity ^0.8.7;
 
-error exibit__PriceMustBeAboveZero();
-error exibit__NotApprovedForMarketPlace();
-error exibit__AlreadyListed(address nftAddress, uint256 tokenId);
-error exibit__NotOwner();
-error exibit__NotListed(address nftAddress, uint256 tokenId);
-error exibit__PriceNotMet(address nftAddress, uint256 tokenId, uint256 price);
-error exibit__NoProceeds();
-error exibit__TransferFailed();
+import "./createCollection.sol";
 
-import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+contract Marketplace {
+    // ** User ** //
 
-contract exibit is ReentrancyGuard {
-    struct Listing {
-        uint256 price;
-        address seller;
-    }
+    // // To store user
+    // struct User {
+    //     string name;
+    //     string image;
+    //     string twitterUrl;
+    //     string websiteUrl;
+    // }
 
-    event ItemListed(
-        address indexed seller,
-        address indexed nftAddress,
-        uint256 indexed tokenId,
-        uint256 price
+    // // To store users (address => string)
+    // mapping(address => User) public users;
+
+    // On user creation
+    event UserCreated(
+        address uAddress,
+        string name,
+        string image,
+        string twitterUrl,
+        string websiteUrl
     );
 
-    event ItemBought(
-        address indexed seller,
-        address indexed nftAddress,
-        uint256 indexed tokenId,
-        uint256 price
+    // Create/Update user profile
+    function createUser(
+        string memory name_,
+        string memory image_,
+        string memory twitterUrl_,
+        string memory websiteUrl_
+    ) public {
+        // Map User to address
+        // users[msg.sender] = User(name_, metadata_);
+
+        // Log event to subgraph
+        emit UserCreated(msg.sender, name_, image_, twitterUrl_, websiteUrl_);
+    }
+
+    // ** Custom Collection ** //
+
+    // On collection creation
+    event CollectionCreated(
+        address cAddress,
+        string name,
+        string image,
+        address creator,
+        string metadata
     );
-    event ItemCanceled(
-        address indexed seller,
-        address indexed nftAddress,
-        uint256 indexed tokenId
-    );
 
-    mapping(address => mapping(uint256 => Listing)) private s_listings;
-    mapping(address => uint256) private s_proceeds;
+    // Create and List collection on marketplace
+    function createCollection(
+        string memory name_,
+        string memory symbol_,
+        string memory image_,
+        string memory metadata_
+    ) public {
+        address cAddress = address(
+            new CustomCollection(name_, symbol_, metadata_, msg.sender)
+        );
 
-    modifier notListed(
-        address nftAddress,
-        uint256 tokenId,
-        address owner
-    ) {
-        Listing memory listing = s_listings[nftAddress][tokenId];
-        if (listing.price > 0) {
-            revert exibit__AlreadyListed(nftAddress, tokenId);
-        }
-        _;
+        // Log event to subgraph
+        emit CollectionCreated(cAddress, name_, image_, msg.sender, metadata_);
     }
 
-    modifier isOwner(
-        address nftAddress,
-        uint tokenId,
-        address spender
-    ) {
-        IERC721 nft = IERC721(nftAddress);
-        address owner = nft.ownerOf(tokenId);
-        if (spender != owner) {
-            revert exibit__NotOwner();
-        }
-        _;
-    }
+    // To buy fixed price nfts
+    function marketPlaceTransferFrom(
+        address cAddress,
+        address nftOwner,
+        address newOwner,
+        uint256 tokenId
+    ) public {
+        // Check if caller is collection
+        require(
+            msg.sender == cAddress,
+            "Marketplace : marketPlaceTransferFrom -> Caller is not contract"
+        );
 
-    modifier isListed(address nftAddress, uint256 tokenId) {
-        Listing memory listing = s_listings[nftAddress][tokenId];
-        if (listing.price <= 0) {
-            revert exibit__NotListed(nftAddress, tokenId);
-        }
-        _;
-    }
-
-    function listItem(
-        address nftAddress,
-        uint256 tokenId,
-        uint256 price
-    )
-        external
-        // address tokenId
-        notListed(nftAddress, tokenId, msg.sender)
-        isOwner(nftAddress, tokenId, msg.sender)
-    {
-        if (price <= 0) {
-            revert exibit__PriceMustBeAboveZero();
-        }
-
-        IERC721 nft = IERC721(nftAddress);
-        if (nft.getApproved(tokenId) != address(this)) {
-            revert exibit__NotApprovedForMarketPlace();
-        }
-        s_listings[nftAddress][tokenId] = Listing(price, msg.sender);
-        emit ItemListed(msg.sender, nftAddress, tokenId, price);
-    }
-
-    function buyItems(address nftAddress, uint256 tokenId)
-        external
-        payable
-        nonReentrant
-        isListed(nftAddress, tokenId)
-    {
-        Listing memory listedItem = s_listings[nftAddress][tokenId];
-        if (msg.value < listedItem.price) {
-            revert exibit__PriceNotMet(nftAddress, tokenId, listedItem.price);
-        }
-        s_proceeds[listedItem.seller] =
-            s_proceeds[listedItem.seller] +
-            msg.value;
-        delete (s_listings[nftAddress][tokenId]);
-        IERC721(nftAddress).safeTransferFrom(
-            listedItem.seller,
-            msg.sender,
+        CustomCollection(cAddress).safeTransferFrom(
+            nftOwner,
+            newOwner,
             tokenId
         );
-        emit ItemBought(msg.sender, nftAddress, tokenId, listedItem.price);
     }
 
-    function cancelListing(address nftAddress, uint256 tokenId)
-        external
-        isOwner(nftAddress, tokenId, msg.sender)
-        isListed(nftAddress, tokenId)
-    {
-        delete (s_listings[nftAddress][tokenId]);
-        emit ItemCanceled(msg.sender, nftAddress, tokenId);
-    }
-
-    function updateListing(
-        address nftAddress,
-        uint256 tokenId,
-        uint256 newPrice
-    ) external isOwner(nftAddress, tokenId, msg.sender) {
-        s_listings[nftAddress][tokenId].price = newPrice;
-        emit ItemListed(msg.sender, nftAddress, tokenId, newPrice);
-    }
-
-    function withdrawProceeds() external {
-        uint256 proceeds = s_proceeds[msg.sender];
-        if (proceeds <= 0) {
-            revert exibit__NoProceeds();
-        }
-        s_proceeds[msg.sender] = 0;
-        (bool success, ) = payable(msg.sender).call{value: proceeds}("");
-        if (!success) {
-            revert exibit__TransferFailed();
-        }
-    }
-
-    function getListing(address nftAddress, uint256 tokenId)
-        external
-        view
-        returns (Listing memory)
-    {
-        return s_listings[nftAddress][tokenId];
-    }
-
-    function getProceeds(address seller) external view returns (uint256) {
-        return s_proceeds[seller];
-    }
+    // To receive ether
+    // Function to receive Ether. msg.data must be empty
+    receive() external payable {}
 }
