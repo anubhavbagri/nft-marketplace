@@ -22,6 +22,9 @@ class MainScreenController extends GetxController {
   //     // Get.offNamed('/priority-task');
   //   }
   // }
+  final _openModal = false.obs;
+  get openModal => this._openModal.value;
+  set openModal(value) => this._openModal.value = value;
 
   final _tabIndex = 0.obs;
   get tabIndex => this._tabIndex.value;
