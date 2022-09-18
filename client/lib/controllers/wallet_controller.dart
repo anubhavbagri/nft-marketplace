@@ -1,29 +1,44 @@
 import 'package:client/constants/env.dart';
+import 'package:client/utils/global_utils.dart';
+import 'package:client/utils/services/wallet_service.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:walletconnect_dart/walletconnect_dart.dart';
 import 'package:walletconnect_secure_storage/walletconnect_secure_storage.dart';
 import 'package:web3dart/web3dart.dart';
 
 class WalletController extends GetxController {
   static WalletController get to => Get.find();
+  final WalletService _walletService = WalletService();
 
   late WalletConnect connector;
+  late Credentials cred;
+  late EthereumAddress address;
 
   final _displayUri = ''.obs;
-  get displayUri => this._displayUri.value;
-  set displayUri(value) => this._displayUri.value = value;
+
+  get displayUri => _displayUri.value;
+
+  set displayUri(value) => _displayUri.value = value;
 
   final _account = ''.obs;
-  get account => this._account.value;
-  set account(value) => this._account.value = value;
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   initWalletConnect();
-  // }
+  get account => _account.value;
+
+  set account(value) => _account.value = value;
+
+  final _balance = ''.obs;
+
+  get balance => _balance.value;
+
+  set balance(value) => _balance.value = value;
+
+  @override
+  void onInit() {
+    super.onInit();
+    print("~~~~~~~~ Calling init state of wallet connector ~~~~~~~");
+    initWalletConnect();
+  }
 
   Future initWalletConnect() async {
     // Define a session storage
@@ -52,6 +67,8 @@ class WalletController extends GetxController {
         account = status.accounts[0];
       },
     );
+
+    // getBalance();
   }
 
   Future<SessionStatus?> connect() async {
@@ -73,8 +90,11 @@ class WalletController extends GetxController {
           chainId: chainId,
           onDisplayUri: (uri) async {
             displayUri = uri;
-            launchUrl(Uri.parse(uri));
+            openUrl(uri);
           });
+      print('^^^^^^^^^^ Connected: $session');
+      setBalance();
+      Get.toNamed("/main-screen");
       return session;
     } catch (e) {
       print(e);
@@ -82,10 +102,15 @@ class WalletController extends GetxController {
     return null;
   }
 
-  Future<double> getBalance() async {
-    final address = EthereumAddress.fromHex(connector.session.accounts[0]);
-    final amount = await _ethereum.getBalance(address);
-    return amount.getValueInUnit(EtherUnit.ether).toDouble();
+  createNewWallet() async {
+    cred = _walletService.generateRandomAccount();
+    address = await cred.extractAddress();
+    cred.extractAddress();
+
+    final amt = await _ethereum.getBalance(address);
+    balance = formatBalance(amt);
+
+    Get.offNamed("/wallet", arguments: address.hex);
   }
 
   bool validateAddress({required String address}) {
@@ -106,11 +131,17 @@ class WalletController extends GetxController {
     Client(),
   );
 
-  @override
-  void onReady() {
-    super.onReady();
-    initWalletConnect();
+  void setBalance() async {
+    final address = EthereumAddress.fromHex(connector.session.accounts[0]);
+    final amount = await _ethereum.getBalance(address);
+    balance = formatBalance(amount);
   }
+
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  //   initWalletConnect();
+  // }
 
   @override
   void onClose() {

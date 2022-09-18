@@ -1,27 +1,27 @@
 import 'package:client/constants/app_assets.dart';
 import 'package:client/constants/app_strings.dart';
+import 'package:client/controllers/wallet_controller.dart';
 import 'package:client/themes/app_colors.dart';
 import 'package:client/themes/app_dimensions.dart';
 import 'package:client/themes/app_text_styles.dart';
 import 'package:client/themes/background.dart';
+import 'package:client/utils/global_utils.dart';
 import 'package:client/utils/size_config.dart';
+import 'package:client/widgets/custom_glassmorphic_container.dart';
 import 'package:client/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:glassmorphism/glassmorphism.dart';
 import 'package:lottie/lottie.dart';
 
-class WalletPage extends StatefulWidget {
+class WalletPage extends GetView<WalletController> {
   const WalletPage({Key? key}) : super(key: key);
 
   @override
-  State<WalletPage> createState() => _WalletPageState();
-}
-
-class _WalletPageState extends State<WalletPage> {
-  @override
   Widget build(BuildContext context) {
+    String publicAddress = Get.arguments;
+    Future.delayed(
+        const Duration(seconds: 1), () => copyToClipboard(publicAddress));
     SizeConfig().init(context);
     return PrimaryBackground(
       child: Scaffold(
@@ -31,15 +31,15 @@ class _WalletPageState extends State<WalletPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AppDimensions.hSizedBox1,
+              AppDimensions.hSizedBox2,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
                     AppAssets.lightWordmark,
                     width: AppDimensions.heading1TextSize * 3,
                   ),
+                  AppDimensions.wSizedBox2,
                   Text(
                     AppStrings.subtitle,
                     style: AppTextStyles.h4().copyWith(
@@ -51,12 +51,12 @@ class _WalletPageState extends State<WalletPage> {
               ),
               AppDimensions.hSizedBox2,
               Lottie.asset(
-                "assets/tick_transparent.json",
+                AppAssets.lottieTick,
                 key: const Key("tick"),
                 width: AppDimensions.heading1TextSize * 4,
               ),
               Text(
-                'Congratulations!,\n Your account has been created',
+                AppStrings.congo,
                 textAlign: TextAlign.center,
                 style: AppTextStyles.h5().copyWith(
                   fontFamily: AppTextStyles.gilroyBold,
@@ -66,139 +66,153 @@ class _WalletPageState extends State<WalletPage> {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: GlassmorphicContainer(
-                      width: SizeConfig.safeHorizontal! * 0.9,
-                      height: SizeConfig.safeVertical! * 0.35,
-                      borderRadius: 0,
-                      blur: 7,
-                      alignment: Alignment.bottomCenter,
-                      border: 0,
-                      linearGradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            AppColors.primary.withOpacity(0.1),
-                            AppColors.primary.withOpacity(0.1),
-                          ],
-                          stops: const [
-                            0.3,
-                            1,
-                          ]),
-                      borderGradient: LinearGradient(
-                        begin: Alignment.bottomRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          AppColors.primary,
-                          AppColors.white,
-                          AppColors.black,
-                        ],
-                        stops: const [0.06, 0.95, 1],
-                      ),
-                    ),
+                  CustomGlassmorphicContainer(
+                    width: SizeConfig.safeHorizontal! * 0.9,
+                    height: SizeConfig.safeVertical! * 0.33,
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: Container(
-                      color: Colors.transparent,
-                      width: SizeConfig.safeHorizontal! * 0.86,
-                      height: SizeConfig.safeVertical! * 0.32,
+                      color: AppColors.black, //todo: can put some other color
+                      width: SizeConfig.safeHorizontal! * 0.84,
+                      height: SizeConfig.safeVertical! * 0.30,
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                        padding: EdgeInsets.all(AppDimensions.paddingAllSides),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Icon(
-                                Icons.info,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                            AppDimensions.hSizedBox1,
+                            AppDimensions.hSizedBox2,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Private Key:',
+                                  AppStrings.publicAdd,
                                   style: AppTextStyles.h5().copyWith(
                                     fontFamily: AppTextStyles.gilroyBold,
                                     color: AppColors.secondary,
                                   ),
                                 ),
-                                Text(
-                                  '#############',
-                                  style: AppTextStyles.h5().copyWith(
-                                    fontFamily: AppTextStyles.gilroyBold,
-                                    color: AppColors.secondary,
+                                InkWell(
+                                  child: Text(
+                                    formatAddress(publicAddress),
+                                    style: AppTextStyles.h5().copyWith(
+                                      fontFamily: AppTextStyles.gilroyBold,
+                                      color: AppColors.secondary,
+                                    ),
                                   ),
+                                  onTap: () {
+                                    copyToClipboard(publicAddress);
+                                  },
                                 ),
                               ],
                             ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  fixedSize: Size(
-                                      SizeConfig.safeHorizontal! * 0.1,
-                                      SizeConfig.safeVertical! * 0),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  backgroundColor: AppColors.tertiary,
-                                ),
-                                child: Text(
-                                  'Copy',
-                                  style: AppTextStyles.small().copyWith(
-                                    fontFamily: AppTextStyles.gilroyBold,
-                                    color: AppColors.secondary,
-                                  ),
-                                ),
-                                onPressed: () {},
-                              ),
-                            ),
+                            // Align(
+                            //   alignment: Alignment.centerRight,
+                            //   child: ElevatedButton(
+                            //     style: ElevatedButton.styleFrom(
+                            //       fixedSize: Size(
+                            //           SizeConfig.safeHorizontal! * 0.1,
+                            //           SizeConfig.safeVertical! * 0),
+                            //       shape: RoundedRectangleBorder(
+                            //         borderRadius: BorderRadius.circular(8),
+                            //       ),
+                            //       backgroundColor: AppColors.tertiary,
+                            //     ),
+                            //     child: Text(
+                            //       'Copy',
+                            //       style: AppTextStyles.small().copyWith(
+                            //         fontFamily: AppTextStyles.gilroyBold,
+                            //         color: AppColors.secondary,
+                            //       ),
+                            //     ),
+                            //     onPressed: () {},
+                            //   ),
+                            // ),
                             // AppDimensions.hSizedBox1,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Wallet Balance :',
+                                  AppStrings.walletBal,
                                   style: AppTextStyles.h5().copyWith(
                                     fontFamily: AppTextStyles.gilroyBold,
                                     color: AppColors.secondary,
                                   ),
                                 ),
                                 ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            AppDimensions.buttonBorderRadius),
+                                      ),
                                     ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        AppColors.primary),
                                   ),
+                                  onPressed: null,
                                   child: Text(
-                                    '0.000235 MATIC',
+                                    '${controller.balance} MATIC',
                                     style: AppTextStyles.small().copyWith(
                                       fontFamily: AppTextStyles.gilroyBold,
                                     ),
                                   ),
-                                  onPressed: () {},
                                 ),
                               ],
                             ),
-                            AppDimensions.hSizedBox2,
-                            PrimaryButton(
-                              onPressed: () {
-                                Get.offNamed('/main-screen');
-                              },
-                              buttonText: 'Get Some MATIC',
-                              width: AppDimensions.primaryButtonWidth,
-                              height: AppDimensions.primaryButtonHeight,
-                              iconToSet: Icons.arrow_forward,
+                            AppDimensions.hSizedBox1,
+                            Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: PrimaryButton(
+                                onPressed: () async {
+                                  openUrl(controller.faucetUrl);
+                                  await Future.delayed(
+                                      const Duration(seconds: 2));
+                                  Get.offAllNamed("/main-screen");
+                                },
+                                buttonText: 'Get Some MATIC',
+                                width: AppDimensions.primaryButtonWidth,
+                                height: AppDimensions.primaryButtonHeight,
+                                iconToSet: Icons.arrow_back_rounded,
+                              ),
                             ),
                           ],
                         ),
                       ),
+                    ),
+                  ),
+                  Positioned(
+                    top: AppDimensions.smallTextSize,
+                    right: AppDimensions.smallTextSize,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.info_outline_rounded,
+                        color: AppColors.primary,
+                      ),
+                      splashRadius: 0.1,
+                      onPressed: () {
+                        showCustomBottomSheet(
+                          height: AppDimensions.heading1TextSize * 2.5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(
+                                    AppDimensions.paddingAllSides),
+                                child: Text(
+                                  AppStrings.publicAdrInfo,
+                                  textAlign: TextAlign.center,
+                                  style: AppTextStyles.body1().copyWith(
+                                    fontFamily: AppTextStyles.gilroyMedium,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          isDismissible: true,
+                        );
+                      },
                     ),
                   ),
                 ],
