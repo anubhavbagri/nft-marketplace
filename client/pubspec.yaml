@@ -36,11 +36,12 @@ dependencies:
   get_storage: ^2.0.3
   # UI
   flutter_svg: ^1.1.5
-  iconsax: ^0.0.8
+#  iconsax: ^0.0.8
   glassmorphism: ^3.0.0
   flutter_native_splash: ^2.2.9
   # animation
   lottie: ^1.4.3
+  animate_icons: ^2.0.0
   # web3
   web3dart: ^2.4.1
   walletconnect_dart: ^0.0.11
@@ -53,9 +54,14 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  camera: ^0.10.0+1
+  video_player: ^2.4.7
+  path_provider:
+  path:
+
 flutter_icons:
-  image_path_ios: "assets/images/icon.png"
-  image_path_android: "assets/images/icon-transparent.png"
+  image_path_ios: 'assets/images/icon.png'
+  image_path_android: 'assets/images/icon-transparent.png'
   android: true
   ios: true
   remove_alpha_ios: true
@@ -76,7 +82,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

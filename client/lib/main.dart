@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:client/bindings/main_screen_binding.dart';
 import 'package:client/bindings/wallet_binding.dart';
 import 'package:client/routes.dart';
@@ -9,7 +10,15 @@ import 'package:get_storage/get_storage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //setting up camera managery
+  final cameras = await availableCameras();
+
   // await loadServices();
+
+  //Get specific camera from the list of available cameras
+  final firstCamera = cameras.first;
+
   loadDependencies();
   await GetStorage.init();
   runApp(const MyApp());

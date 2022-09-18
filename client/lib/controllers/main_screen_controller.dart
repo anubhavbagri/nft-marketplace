@@ -3,6 +3,10 @@ import 'package:get/get.dart';
 class MainScreenController extends GetxController {
   static MainScreenController get to => Get.find();
 
+  final _openModal = false.obs;
+  get openModal => this._openModal.value;
+  set openModal(value) => this._openModal.value = value;
+
   @override
   void onInit() {
     super.onInit();
