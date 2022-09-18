@@ -1,9 +1,9 @@
 {
   "contractName": "Counters",
   "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.7+commit.e28d00a7\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"author\":\"Matt Condon (@shrugs)\",\"details\":\"Provides counters that can only be incremented, decremented or reset. This can be used e.g. to track the number of elements in a mapping, issuing ERC721 ids, or counting request ids. Include with `using Counters for Counters.Counter;`\",\"kind\":\"dev\",\"methods\":{},\"title\":\"Counters\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"@openzeppelin/contracts/utils/Counters.sol\":\"Counters\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/utils/Counters.sol\":{\"keccak256\":\"0xf0018c2440fbe238dd3a8732fa8e17a0f9dce84d31451dc8a32f6d62b349c9f1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://59e1c62884d55b70f3ae5432b44bb3166ad71ae3acd19c57ab6ddc3c87c325ee\",\"dweb:/ipfs/QmezuXg5GK5oeA4F91EZhozBFekhq5TD966bHPH18cCqhu\"]}},\"version\":1}",
-  "bytecode": "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122031eb738e0a5a287ee8ea71fab68f385e674f509f1f48352e1256086258b31d8764736f6c63430008070033",
-  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122031eb738e0a5a287ee8ea71fab68f385e674f509f1f48352e1256086258b31d8764736f6c63430008070033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"author\":\"Matt Condon (@shrugs)\",\"details\":\"Provides counters that can only be incremented, decremented or reset. This can be used e.g. to track the number of elements in a mapping, issuing ERC721 ids, or counting request ids. Include with `using Counters for Counters.Counter;`\",\"kind\":\"dev\",\"methods\":{},\"title\":\"Counters\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"@openzeppelin/contracts/utils/Counters.sol\":\"Counters\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/utils/Counters.sol\":{\"keccak256\":\"0xf0018c2440fbe238dd3a8732fa8e17a0f9dce84d31451dc8a32f6d62b349c9f1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://59e1c62884d55b70f3ae5432b44bb3166ad71ae3acd19c57ab6ddc3c87c325ee\",\"dweb:/ipfs/QmezuXg5GK5oeA4F91EZhozBFekhq5TD966bHPH18cCqhu\"]}},\"version\":1}",
+  "bytecode": "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220d43d0ef1a472ecbf50bfcb77d2940a7ecaa6b0bb1bd21c66f8a7dfc9bb52b4b864736f6c63430008110033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220d43d0ef1a472ecbf50bfcb77d2940a7ecaa6b0bb1bd21c66f8a7dfc9bb52b4b864736f6c63430008110033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
@@ -36,6 +36,7 @@
       {
         "abstract": false,
         "baseContracts": [],
+        "canonicalName": "Counters",
         "contractDependencies": [],
         "contractKind": "library",
         "documentation": {
@@ -117,6 +118,7 @@
                     "isLValue": true,
                     "isPure": false,
                     "lValueRequested": false,
+                    "memberLocation": "926:6:9",
                     "memberName": "_value",
                     "nodeType": "MemberAccess",
                     "referencedDeclaration": 1560,
@@ -165,6 +167,9 @@
                     "pathNode": {
                       "id": 1562,
                       "name": "Counter",
+                      "nameLocations": [
+                        "844:7:9"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1561,
                       "src": "844:7:9"
@@ -257,6 +262,7 @@
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": true,
+                          "memberLocation": "1040:6:9",
                           "memberName": "_value",
                           "nodeType": "MemberAccess",
                           "referencedDeclaration": 1560,
@@ -330,6 +336,9 @@
                     "pathNode": {
                       "id": 1574,
                       "name": "Counter",
+                      "nameLocations": [
+                        "964:7:9"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1561,
                       "src": "964:7:9"
@@ -416,6 +425,7 @@
                     "isLValue": true,
                     "isPure": false,
                     "lValueRequested": false,
+                    "memberLocation": "1161:6:9",
                     "memberName": "_value",
                     "nodeType": "MemberAccess",
                     "referencedDeclaration": 1560,
@@ -525,6 +535,7 @@
                     "isPure": false,
                     "kind": "functionCall",
                     "lValueRequested": false,
+                    "nameLocations": [],
                     "names": [],
                     "nodeType": "FunctionCall",
                     "src": "1177:49:9",
@@ -568,6 +579,7 @@
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": true,
+                          "memberLocation": "1268:6:9",
                           "memberName": "_value",
                           "nodeType": "MemberAccess",
                           "referencedDeclaration": 1560,
@@ -671,6 +683,9 @@
                     "pathNode": {
                       "id": 1588,
                       "name": "Counter",
+                      "nameLocations": [
+                        "1093:7:9"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1561,
                       "src": "1093:7:9"
@@ -730,6 +745,7 @@
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
+                      "memberLocation": "1376:6:9",
                       "memberName": "_value",
                       "nodeType": "MemberAccess",
                       "referencedDeclaration": 1560,
@@ -801,6 +817,9 @@
                     "pathNode": {
                       "id": 1616,
                       "name": "Counter",
+                      "nameLocations": [
+                        "1324:7:9"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1561,
                       "src": "1324:7:9"
@@ -839,11 +858,11 @@
   },
   "compiler": {
     "name": "solc",
-    "version": "0.8.7+commit.e28d00a7.Emscripten.clang"
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-09-18T21:01:56.286Z",
+  "updatedAt": "2022-09-18T21:44:49.002Z",
   "devdoc": {
     "author": "Matt Condon (@shrugs)",
     "details": "Provides counters that can only be incremented, decremented or reset. This can be used e.g. to track the number of elements in a mapping, issuing ERC721 ids, or counting request ids. Include with `using Counters for Counters.Counter;`",

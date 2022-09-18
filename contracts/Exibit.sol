@@ -3,7 +3,7 @@ pragma solidity ^0.8.7;
 
 import "./createCollection.sol";
 
-contract Marketplace {
+contract Exibit {
     // ** User ** //
 
     // On user creation

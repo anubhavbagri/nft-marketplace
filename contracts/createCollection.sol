@@ -4,7 +4,7 @@ pragma solidity ^0.8.7;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "./exibit.sol";
+import "./Exibit.sol";
 
 enum ListingType {
     FixedPrice,
@@ -227,7 +227,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         );
 
         // Transfer nft to msg.sender
-        Marketplace(exibitMarketAddress).marketPlaceTransferFrom(
+        Exibit(exibitMarketAddress).marketPlaceTransferFrom(
             address(this),
             ownerOf(tokenId),
             msg.sender,

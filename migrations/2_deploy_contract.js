@@ -1,5 +1,5 @@
-var Marketplace = artifacts.require("./Marketplace.sol");
+var Exibit = artifacts.require("./Exibit.sol");
 
 module.exports = function (deployer) {
-  deployer.deploy(Marketplace);
+  deployer.deploy(Exibit);
 };
