@@ -33,7 +33,8 @@ class MainScreen extends GetView<MainScreenController> {
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColors.black,
-          shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 1)),
+          shape: const StadiumBorder(
+              side: BorderSide(color: Colors.white, width: 1)),
           onPressed: () {},
           child: const Icon(
             Icons.add,
