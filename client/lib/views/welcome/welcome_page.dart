@@ -53,7 +53,7 @@ class WelcomePage extends GetView<WalletController> {
                       width: AppDimensions.primaryButtonWidth,
                       height: AppDimensions.primaryButtonHeight,
                       onPressed: () {
-                        Get.toNamed("/wallet");
+                        controller.createNewWallet();
                       },
                     ),
                   ),
