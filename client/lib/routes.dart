@@ -1,3 +1,4 @@
+import 'package:client/views/camera/camera_page.dart';
 import 'package:client/views/main/discover_page.dart';
 import 'package:client/views/main/main_screen.dart';
 import 'package:client/views/wallet/wallet_page.dart';
@@ -26,6 +27,11 @@ class AppRoutes {
     GetPage(
         name: '/main-screen',
         page: () => MainScreen(),
+        transition: Transition.fadeIn,
+        transitionDuration: const Duration(milliseconds: 500)),
+    GetPage(
+        name: '/camera',
+        page: () => CameraPage(camera: Get.arguments),
         transition: Transition.fadeIn,
         transitionDuration: const Duration(milliseconds: 500)),
   ];

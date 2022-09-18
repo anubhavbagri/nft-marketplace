@@ -6,6 +6,10 @@ import 'package:get_storage/get_storage.dart';
 class MainScreenController extends GetxController {
   static MainScreenController get to => Get.find();
 
+  final _openModal = false.obs;
+  get openModal => this._openModal.value;
+  set openModal(value) => this._openModal.value = value;
+
   @override
   void onInit() {
     super.onInit();
@@ -22,9 +26,6 @@ class MainScreenController extends GetxController {
   //     // Get.offNamed('/priority-task');
   //   }
   // }
-  final _openModal = false.obs;
-  get openModal => this._openModal.value;
-  set openModal(value) => this._openModal.value = value;
 
   final _tabIndex = 0.obs;
   get tabIndex => this._tabIndex.value;

@@ -98,7 +98,7 @@ class DiscoverPage extends StatelessWidget {
                             fontFamily: AppTextStyles.gilroyMedium,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 )

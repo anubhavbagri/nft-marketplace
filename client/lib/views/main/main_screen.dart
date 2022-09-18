@@ -1,4 +1,5 @@
 import 'package:animate_icons/animate_icons.dart';
+import 'package:camera/camera.dart';
 import 'package:client/controllers/main_screen_controller.dart';
 import 'package:client/themes/app_colors.dart';
 import 'package:client/utils/size_config.dart';
@@ -36,7 +37,7 @@ class MainScreen extends GetView<MainScreenController> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Visibility(
-                  visible: !controller.openModal,
+                  visible: controller.openModal,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: AnimatedContainer(
@@ -58,7 +59,12 @@ class MainScreen extends GetView<MainScreenController> {
                               buttonText: "Capture Now",
                               width: SizeConfig.safeHorizontal! * 0.8,
                               height: SizeConfig.safeVertical! * 0.06,
-                              onPressed: () {}),
+                              onPressed: () async {
+                                await availableCameras().then((cameras) {
+                                  Get.toNamed("/camera",
+                                      arguments: cameras.first);
+                                });
+                              }),
                           // Spacer(),
                         ],
                       ),
