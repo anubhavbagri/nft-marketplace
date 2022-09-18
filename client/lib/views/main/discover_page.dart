@@ -1,16 +1,12 @@
-import 'package:client/constants/app_assets.dart';
-import 'package:client/constants/app_strings.dart';
+import 'package:client/controllers/wallet_controller.dart';
 import 'package:client/themes/app_colors.dart';
-import 'package:client/themes/app_dimensions.dart';
 import 'package:client/themes/app_text_styles.dart';
 import 'package:client/themes/background.dart';
 import 'package:client/utils/size_config.dart';
-import 'package:client/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
+import 'package:get/get.dart';
 
 class DiscoverPage extends StatelessWidget {
   const DiscoverPage({super.key});
@@ -91,11 +87,13 @@ class DiscoverPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                        child: Text(
-                          'Top Collections',
-                          // textAlign: TextAlign.start,
-                          style: AppTextStyles.h4().copyWith(
-                            fontFamily: AppTextStyles.gilroyMedium,
+                        child: Obx(
+                          () => Text(
+                            "${WalletController.to.account}\n${WalletController.to.balance}",
+                            // textAlign: TextAlign.start,
+                            style: AppTextStyles.h4().copyWith(
+                              fontFamily: AppTextStyles.gilroyMedium,
+                            ),
                           ),
                         ),
                       )

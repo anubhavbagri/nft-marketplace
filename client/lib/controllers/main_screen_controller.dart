@@ -1,7 +1,4 @@
-import 'package:client/services/lifecycle_handler.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class MainScreenController extends GetxController {
   static MainScreenController get to => Get.find();
@@ -30,7 +27,7 @@ class MainScreenController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    GetStorage().write("prevDate", DateTime.now().toUtc().toIso8601String());
+    // GetStorage().write("prevDate", DateTime.now().toUtc().toIso8601String());
   }
 
   void changeTabIndex(int index) {
