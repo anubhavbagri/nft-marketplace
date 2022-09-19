@@ -1,6 +1,8 @@
 import 'package:client/views/camera/camera_page.dart';
 import 'package:client/views/main/discover_page.dart';
 import 'package:client/views/main/main_screen.dart';
+import 'package:client/views/others/error_page.dart';
+import 'package:client/views/others/loading_page.dart';
 import 'package:client/views/wallet/wallet_page.dart';
 import 'package:client/views/welcome/welcome_page.dart';
 import 'package:get/get.dart';
@@ -33,6 +35,16 @@ class AppRoutes {
         name: '/camera',
         page: () => CameraPage(camera: Get.arguments),
         transition: Transition.fadeIn,
+        transitionDuration: const Duration(milliseconds: 500)),
+    GetPage(
+        name: '/loading',
+        page: () => LoadingPage(subtext: Get.arguments),
+        transition: Transition.circularReveal,
+        transitionDuration: const Duration(milliseconds: 500)),
+    GetPage(
+        name: '/error',
+        page: () => ErrorPage(errorString: Get.arguments),
+        transition: Transition.circularReveal,
         transitionDuration: const Duration(milliseconds: 500)),
   ];
 }
