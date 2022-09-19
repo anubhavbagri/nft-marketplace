@@ -2,17 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:client/config/config.dart';
+import 'package:client/constants/env.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../config/config.dart';
 
 class IPFSService {
-  final SharedPreferences _prefs;
-
-  const IPFSService(this._prefs);
+  final storage = GetStorage();
 
   Future<http.Response> getImage(String cid) async {
     try {
@@ -51,14 +49,14 @@ class IPFSService {
   }
 
   _checkCache(String cid) {
-    return _prefs.getString('getJson-$cid');
+    return storage.read('getJson-$cid');
   }
 
   _cacheResponse(String cid, String body) async {
-    await _prefs.setString('getJson-$cid', body);
+    await storage.write('getJson-$cid', body);
 
     Timer(const Duration(seconds: 15), () async {
-      await _prefs.remove('getJson-$cid');
+      await storage.remove('getJson-$cid');
 
       debugPrint('Removed cache');
     });
