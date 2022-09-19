@@ -1,5 +1,6 @@
 import 'package:animate_icons/animate_icons.dart';
 import 'package:camera/camera.dart';
+import 'package:client/controllers/collection_controller.dart';
 import 'package:client/controllers/main_screen_controller.dart';
 import 'package:client/controllers/wallet_controller.dart';
 import 'package:client/controllers/welcome_controller.dart';
@@ -11,6 +12,7 @@ import 'package:client/views/main/profile_page.dart';
 import 'package:client/views/main/search_page.dart';
 import 'package:client/views/welcome/welcome_page.dart';
 import 'package:client/widgets/bottom_bar.dart';
+import 'package:client/widgets/custom_glassmorphic_container.dart';
 import 'package:client/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,6 +36,7 @@ class MainScreen extends GetView<MainScreenController> {
               WalletController.to.publicAdr != '')
           ? Scaffold(
               extendBody: true,
+              backgroundColor: Colors.transparent,
               body: Stack(
                 children: [
                   pages[controller.tabIndex],
@@ -43,13 +46,11 @@ class MainScreen extends GetView<MainScreenController> {
                       alignment: Alignment.bottomCenter,
                       child: Visibility(
                         visible: controller.openModal,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: AnimatedContainer(
+                        child: CustomGlassmorphicContainer(
+                          height: SizeConfig.safeVertical! * 0.3,
+                          width: SizeConfig.safeHorizontal! * 0.9,
+                          widget: AnimatedContainer(
                             duration: const Duration(milliseconds: 300),
-                            color: Colors.white.withOpacity(0.1),
-                            height: SizeConfig.safeVertical! * 0.3,
-                            width: SizeConfig.safeHorizontal! * 0.9,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,7 +60,9 @@ class MainScreen extends GetView<MainScreenController> {
                                     width: SizeConfig.safeHorizontal! * 0.8,
                                     height: SizeConfig.safeVertical! * 0.06,
                                     buttonColor: AppColors.black,
-                                    onPressed: () {}),
+                                    onPressed: () async {
+                                      CollectionController.to.pickImage();
+                                    }),
                                 PrimaryButton(
                                   buttonText: "Capture Now",
                                   width: SizeConfig.safeHorizontal! * 0.8,
@@ -68,13 +71,8 @@ class MainScreen extends GetView<MainScreenController> {
                                     await availableCameras().then((cameras) {
                                       Get.toNamed("/camera-screen");
                                     });
-                                    // await availableCameras().then((cameras) {
-                                    //   Get.toNamed("/camera",
-                                    //       arguments: cameras.first);
-                                    // });
                                   },
                                 ),
-                                // Spacer(),
                               ],
                             ),
                           ),
@@ -91,7 +89,8 @@ class MainScreen extends GetView<MainScreenController> {
               floatingActionButton: FloatingActionButton(
                 backgroundColor: AppColors.black,
                 shape: const StadiumBorder(
-                    side: BorderSide(color: Colors.white, width: 1)),
+                  side: BorderSide(color: Colors.white, width: 1),
+                ),
                 onPressed: () {},
                 child: AnimateIcons(
                   startIcon: Icons.add,
