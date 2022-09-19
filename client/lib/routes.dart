@@ -1,5 +1,5 @@
 import 'package:client/views/camera/camera_screen.dart';
-import 'package:client/views/collection/create_collection_page.dart';
+import 'package:client/views/collection/create_nft_page.dart';
 import 'package:client/views/main/discover_page.dart';
 import 'package:client/views/main/main_screen.dart';
 import 'package:client/views/others/error_page.dart';
@@ -48,9 +48,9 @@ class AppRoutes {
         transition: Transition.circularReveal,
         transitionDuration: const Duration(milliseconds: 500)),
     GetPage(
-        name: '/create-collection',
-        page: () => const CreateCollectionPage(),
-        transition: Transition.circularReveal,
+        name: '/create-nft',
+        page: () => const CreateNFTPage(),
+        transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500)),
   ];
 }
