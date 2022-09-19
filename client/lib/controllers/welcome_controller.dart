@@ -28,7 +28,6 @@ class WelcomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print("~~~~~~~~ [WELCOME CONTROLLER] To connect metamask ~~~~~~~");
     initWalletConnect();
   }
 
