@@ -9,6 +9,7 @@ class AppThemes {
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: AppColors.primary,
     ),
+    splashColor: Colors.transparent,
     brightness: Brightness.light,
     fontFamily: AppTextStyles.gilroyRegular,
     // floatingActionButtonTheme: FloatingActionButtonThemeData(
