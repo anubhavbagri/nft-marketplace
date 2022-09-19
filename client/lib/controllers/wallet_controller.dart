@@ -25,7 +25,6 @@ class WalletController extends GetxController with StateMixin {
   @override
   void onInit() {
     super.onInit();
-    // initWalletConnect();
   }
 
   createNewWallet() async {
@@ -39,7 +38,7 @@ class WalletController extends GetxController with StateMixin {
       setBalance(address);
 
       publicAdr = address.hex;
-
+      copyAddress();
       change(null, status: RxStatus.success());
       Get.offNamed("/wallet");
     } catch (exception) {
@@ -57,6 +56,10 @@ class WalletController extends GetxController with StateMixin {
   @override
   void onReady() {
     super.onReady();
+    copyAddress();
+  }
+
+  void copyAddress() {
     if (publicAdr != '') {
       Future.delayed(
           const Duration(seconds: 1), () => copyToClipboard(publicAdr));
