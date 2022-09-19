@@ -1,8 +1,8 @@
 import 'package:client/themes/app_colors.dart';
 import 'package:client/utils/size_config.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../controllers/main_screen_controller.dart';
 
@@ -27,45 +27,37 @@ class BottomBar extends GetView<MainScreenController> {
     );
 
     return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.21),
-            blurRadius: 10,
-            offset: Offset(0, -5),
-          ),
-        ],
-      ),
+      decoration: BoxDecoration(),
       child: BottomAppBar(
         color: Colors.black,
         elevation: 200,
-        shape: CircularNotchedRectangle(),
+        // shape: CircularNotchedRectangle(),
         notchMargin: 3,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             buildTabItem(
               index: 0,
-              icon: Icon(Icons.explore),
-              title: 'Home',
+              icon: Icon(Iconsax.discover),
+              title: 'Discover ',
               context: context,
             ),
             buildTabItem(
               index: 1,
-              icon: Icon(Icons.search),
+              icon: Icon(Iconsax.search_normal_1),
               title: 'Search',
               context: context,
             ),
             placeholder,
             buildTabItem(
               index: 2,
-              icon: Icon(Icons.favorite),
-              title: 'favorite',
+              icon: Icon(Iconsax.heart),
+              title: 'Favorite',
               context: context,
             ),
             buildTabItem(
               index: 3,
-              icon: Icon(Icons.person),
+              icon: Icon(Iconsax.user),
               title: 'Profile',
               context: context,
             ),
