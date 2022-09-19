@@ -9,15 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-// Future<void> main() async {
-// setting up camera managery
-// final cameras = await availableCameras();
-
-// Get specific camera from the list of available cameras
-// final firstCamera = cameras.first;
-
-// }
-
 List<CameraDescription> cameras = [];
 
 Future<void> main() async {
