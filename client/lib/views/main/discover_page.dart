@@ -1,3 +1,4 @@
+import 'package:client/controllers/wallet_controller.dart';
 import 'package:client/controllers/welcome_controller.dart';
 import 'package:client/themes/app_colors.dart';
 import 'package:client/themes/app_text_styles.dart';
@@ -87,7 +88,7 @@ class DiscoverPage extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
                         child: Obx(
                           () => Text(
-                            "${WelcomeController.to.account}\n${WelcomeController.to.balance}",
+                            "${WelcomeController.to.account}\n${WalletController.to.publicAdr}",
                             // textAlign: TextAlign.start,
                             style: AppTextStyles.h4().copyWith(
                               fontFamily: AppTextStyles.gilroyMedium,
