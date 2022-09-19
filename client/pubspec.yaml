@@ -36,8 +36,8 @@ dependencies:
   get_storage: ^2.0.3
   # UI
   flutter_svg: ^1.1.5
-#  iconsax: ^0.0.8
   glassmorphism: ^3.0.0
+  iconsax: ^0.0.8
   flutter_native_splash: ^2.2.9
   # animation
   lottie: ^1.4.3
@@ -46,7 +46,7 @@ dependencies:
   web3dart: ^2.4.1
   walletconnect_dart: ^0.0.11
   walletconnect_secure_storage: ^1.0.0
-
+  # tools
   http: ^0.13.5
   url_launcher: ^6.1.5
   internet_connection_checker: ^0.0.1+4
