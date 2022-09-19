@@ -10,7 +10,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 class ErrorPage extends StatelessWidget {
-  const ErrorPage({Key? key}) : super(key: key);
+  const ErrorPage({Key? key, required this.errorString}) : super(key: key);
+
+  final String errorString;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class ErrorPage extends StatelessWidget {
             ),
             AppDimensions.hSizedBox3,
             Text(
-              AppStrings.error,
+              AppStrings.error(errorString),
               textAlign: TextAlign.center,
               style: AppTextStyles.h5().copyWith(
                 fontFamily: AppTextStyles.gilroyBold,
