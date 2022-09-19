@@ -8,30 +8,45 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
 
-  //setting up camera managery
-  final cameras = await availableCameras();
+//   //setting up camera managery
+//   final cameras = await availableCameras();
 
-  // await loadServices();
+//   // await loadServices();
 
-  //Get specific camera from the list of available cameras
-  final firstCamera = cameras.first;
+//   //Get specific camera from the list of available cameras
+//   final firstCamera = cameras.first;
 
-  loadDependencies();
-  await GetStorage.init();
-  runApp(const MyApp());
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp]); // auto rotate off
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ),
-  );
-}
+//   loadDependencies();
+//   await GetStorage.init();
+//   runApp(const MyApp());
+//   SystemChrome.setPreferredOrientations(
+//       [DeviceOrientation.portraitUp]); // auto rotate off
+//   SystemChrome.setSystemUIOverlayStyle(
+//     const SystemUiOverlayStyle(
+//       statusBarColor: Colors.transparent,
+//     ),
+//   );
+// }
 
 // Future<void> loadServices() async {}
+// ---------------------------------------------------------------------------//
+List<CameraDescription> cameras = [];
+
+Future<void> main() async {
+  loadDependencies();
+
+  // Fetch the available cameras before initializing the app.
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    print('Error in fetching the cameras: $e');
+  }
+  runApp(MyApp());
+}
 
 void loadDependencies() {
   WalletBinding().dependencies();
