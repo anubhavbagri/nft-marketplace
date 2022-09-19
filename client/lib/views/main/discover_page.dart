@@ -1,11 +1,9 @@
-import 'package:client/controllers/wallet_controller.dart';
+import 'package:client/controllers/welcome_controller.dart';
 import 'package:client/themes/app_colors.dart';
 import 'package:client/themes/app_text_styles.dart';
 import 'package:client/themes/background.dart';
 import 'package:client/utils/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class DiscoverPage extends StatelessWidget {
@@ -89,7 +87,7 @@ class DiscoverPage extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
                         child: Obx(
                           () => Text(
-                            "${WalletController.to.account}\n${WalletController.to.balance}",
+                            "${WelcomeController.to.account}\n${WelcomeController.to.balance}",
                             // textAlign: TextAlign.start,
                             style: AppTextStyles.h4().copyWith(
                               fontFamily: AppTextStyles.gilroyMedium,
