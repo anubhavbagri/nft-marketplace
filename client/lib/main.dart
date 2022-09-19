@@ -3,7 +3,6 @@ import 'package:client/bindings/wallet_binding.dart';
 import 'package:client/bindings/welcome_binding.dart';
 import 'package:client/routes.dart';
 import 'package:client/themes/app_themes.dart';
-import 'package:client/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -46,7 +45,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return GetMaterialApp(
       title: 'exibit',
       initialRoute: "/",
