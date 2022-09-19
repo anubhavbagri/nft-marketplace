@@ -23,7 +23,7 @@ List<CameraDescription> cameras = [];
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   loadDependencies();
-  await loadServices();
+  // await loadServices();
   await GetStorage.init();
   try {
     cameras = await availableCameras();
@@ -46,7 +46,7 @@ void loadDependencies() {
   MainScreenBinding().dependencies();
 }
 
-Future<void> loadServices() async {}
+// Future<void> loadServices() async {}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
