@@ -1,4 +1,4 @@
-import 'package:client/constants/env.dart';
+import 'package:client/config/config.dart';
 import 'package:client/themes/app_dimensions.dart';
 import 'package:client/widgets/custom_glassmorphic_container.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ void copyToClipboard(String data) async {
 }
 
 final ethereum = Web3Client(
-  'https://polygon-mumbai.g.alchemy.com/v2/$rpcApiKey',
+  rpcURL,
   Client(),
 );
 
