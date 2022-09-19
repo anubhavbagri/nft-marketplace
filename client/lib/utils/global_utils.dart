@@ -1,8 +1,10 @@
+import 'package:client/constants/env.dart';
 import 'package:client/themes/app_dimensions.dart';
 import 'package:client/widgets/custom_glassmorphic_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -19,6 +21,11 @@ void copyToClipboard(String data) async {
 
   Get.snackbar(data, 'Copied to clipboard');
 }
+
+final ethereum = Web3Client(
+  'https://polygon-mumbai.g.alchemy.com/v2/$rpcApiKey',
+  Client(),
+);
 
 void showCustomBottomSheet({
   required Widget child,
