@@ -1,19 +1,20 @@
-const HDWalletProvider = require("@truffle/hdwallet-provider");
-require("dotenv").config();
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+require('dotenv').config();
 const { mnemonic } = process.env;
+const { aviralRpcApiKey } = process.env;
 
 module.exports = {
   networks: {
     development: {
-      host: "127.0.0.1", // Localhost (default: none)
+      host: '127.0.0.1', // Localhost (default: none)
       port: 8545, // Standard Ethereum port (default: none)
-      network_id: "*", // Any network (default: none)
+      network_id: '*', // Any network (default: none)
     },
     matic: {
       provider: () =>
         new HDWalletProvider(
           mnemonic,
-          `wss://polygon-mumbai.g.alchemy.com/v2/qywNmQWAb2WC6WpvQy7QB3PWvvkRkOXf`
+          `wss://polygon-mumbai.g.alchemy.com/v2/${aviralRpcApiKey}`
         ),
       network_id: 80001,
       confirmations: 2,
@@ -30,7 +31,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.7",
+      version: '0.8.7',
     },
   },
 };

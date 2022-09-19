@@ -8,10 +8,5 @@ const rpcURL = 'https://rpc-mumbai.maticvigil.com';
 //IPFS FETCH URL
 const ipfsURL = 'https://ipfs.io/ipfs/';
 
-
-//NFT STORAGE API KEY
-const nftStorageKey =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGRERUQwNzRlQ2IxYzVBRTJkYTRkNDNmOTYyNUYxMzI0OTkxNjcxNmIiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2MTQyNTY3OTI4NCwibmFtZSI6ImhhY2thdGhvblRlc3QifQ.Xx7fkFMNVCF_1Yk7a7fgQN7Wn4HfKiDidUdbek8j49c";
-
 const kFavCollection = 'fav-collections';
 const kFavNFT = 'fav-nfts';
