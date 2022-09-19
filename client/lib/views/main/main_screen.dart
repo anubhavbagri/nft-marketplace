@@ -61,15 +61,19 @@ class MainScreen extends GetView<MainScreenController> {
                                     buttonColor: AppColors.black,
                                     onPressed: () {}),
                                 PrimaryButton(
-                                    buttonText: "Capture Now",
-                                    width: SizeConfig.safeHorizontal! * 0.8,
-                                    height: SizeConfig.safeVertical! * 0.06,
-                                    onPressed: () async {
-                                      await availableCameras().then((cameras) {
-                                        Get.toNamed("/camera",
-                                            arguments: cameras.first);
-                                      });
-                                    }),
+                                  buttonText: "Capture Now",
+                                  width: SizeConfig.safeHorizontal! * 0.8,
+                                  height: SizeConfig.safeVertical! * 0.06,
+                                  onPressed: () async {
+                                    await availableCameras().then((cameras) {
+                                      Get.toNamed("/camera-screen");
+                                    });
+                                    // await availableCameras().then((cameras) {
+                                    //   Get.toNamed("/camera",
+                                    //       arguments: cameras.first);
+                                    // });
+                                  },
+                                ),
                                 // Spacer(),
                               ],
                             ),

@@ -59,6 +59,7 @@ dependencies:
   video_player: ^2.4.7
   path_provider:
   path:
+  permission_handler: ^10.0.0
 
 flutter_icons:
   image_path_ios: 'assets/images/icon.png'

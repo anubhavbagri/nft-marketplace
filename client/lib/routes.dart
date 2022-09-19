@@ -1,4 +1,5 @@
-import 'package:client/views/camera/camera_page.dart';
+import 'package:client/views/camera/camera_screen.dart';
+
 import 'package:client/views/main/discover_page.dart';
 import 'package:client/views/main/main_screen.dart';
 import 'package:client/views/others/error_page.dart';
@@ -32,8 +33,8 @@ class AppRoutes {
         transition: Transition.fadeIn,
         transitionDuration: const Duration(milliseconds: 500)),
     GetPage(
-        name: '/camera',
-        page: () => CameraPage(camera: Get.arguments),
+        name: '/camera-screen',
+        page: () => CameraScreen(),
         transition: Transition.fadeIn,
         transitionDuration: const Duration(milliseconds: 500)),
     GetPage(

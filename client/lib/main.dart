@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:client/bindings/main_screen_binding.dart';
 import 'package:client/bindings/wallet_binding.dart';
 import 'package:client/bindings/welcome_binding.dart';
@@ -8,19 +9,27 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+// Future<void> main() async {
+// setting up camera managery
+// final cameras = await availableCameras();
+
+// Get specific camera from the list of available cameras
+// final firstCamera = cameras.first;
+
+// }
+
+List<CameraDescription> cameras = [];
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // setting up camera managery
-  // final cameras = await availableCameras();
-
-  // await loadServices();
-
-  // Get specific camera from the list of available cameras
-  // final firstCamera = cameras.first;
-
   loadDependencies();
+  await loadServices();
   await GetStorage.init();
+  try {
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    debugPrint('Error in fetching the cameras: $e');
+  }
   runApp(const MyApp());
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp]); // auto rotate off
@@ -31,13 +40,13 @@ Future<void> main() async {
   );
 }
 
-// Future<void> loadServices() async {}
-
 void loadDependencies() {
   WelcomeBinding().dependencies();
   WalletBinding().dependencies();
   MainScreenBinding().dependencies();
 }
+
+Future<void> loadServices() async {}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
