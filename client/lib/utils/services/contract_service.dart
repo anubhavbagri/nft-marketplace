@@ -1,7 +1,6 @@
+import 'package:client/config/config.dart';
 import 'package:flutter/services.dart';
 import 'package:web3dart/web3dart.dart';
-
-import '../../config/config.dart';
 
 class ContractService {
   late final DeployedContract collection;
@@ -15,22 +14,23 @@ class ContractService {
   Future<void> _init() async {
     //collection
     collection = await _loadABI(
-      'assets/abi/CustomCollection.json',
-      'CustomCollection',
-      customERC721Address,
+      'assets/abi/CreateCollection.json',
+      'CreateCollection',
+      createCollectionAddress,
     );
 
+    //price feed
     priceFeed = await _loadABI(
-      'assets/abi/PriceFeed.json',
-      'PriceFeed',
+      'assets/abi/Pricefeed.json',
+      'Pricefeed',
       priceFeedAddress,
     );
 
     //Marketplace
     marketPlace = await _loadABI(
-      'assets/abi/Marketplace.json',
-      'Marketplace',
-      marketPlaceAddress,
+      'assets/abi/Exibit.json',
+      'Exibit',
+      exibitAddress,
     );
   }
 
@@ -40,10 +40,6 @@ class ContractService {
     String contractAddress,
   ) async {
     String abiString = await rootBundle.loadString(path);
-
-    // final abiJson = jsonDecode(abiString);
-
-    // final abi = jsonEncode(abiJson['abi']);
 
     final contract = DeployedContract(
       ContractAbi.fromJson(abiString, name),
@@ -58,8 +54,8 @@ class ContractService {
     String contractAddress,
   ) async =>
       await _loadABI(
-        'assets/abi/CustomCollection.json',
-        'CustomERC721Collection',
+        'assets/abi/CreateCollection.json',
+        'CreateCollection',
         contractAddress,
       );
 }
