@@ -3,6 +3,7 @@ import 'package:client/themes/app_colors.dart';
 import 'package:client/themes/app_text_styles.dart';
 import 'package:client/themes/background.dart';
 import 'package:client/utils/size_config.dart';
+import 'package:client/widgets/collection_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -87,14 +88,47 @@ class DiscoverPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                        child: Obx(
-                          () => Text(
-                            "${WalletController.to.account}\n${WalletController.to.balance}",
-                            // textAlign: TextAlign.start,
-                            style: AppTextStyles.h4().copyWith(
-                              fontFamily: AppTextStyles.gilroyMedium,
-                            ),
+                        child: Text(
+                          "Top Collections",
+                          // textAlign: TextAlign.start,
+                          style: AppTextStyles.h4().copyWith(
+                            fontFamily: AppTextStyles.gilroyMedium,
                           ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 20, 10, 0),
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: <CollectionList>[
+                            CollectionList(
+                              title: "Collection",
+                              user:
+                                  "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+                              image1:
+                                  Image.asset("assets/images/flamingo.jpeg"),
+                              image2: Image.asset("assets/images/alien.jpeg"),
+                              image3: Image.asset("assets/images/panda.jpeg"),
+                            ),
+                            CollectionList(
+                              title: "Collection",
+                              user:
+                                  "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+                              image1:
+                                  Image.asset("assets/images/flamingo.jpeg"),
+                              image2: Image.asset("assets/images/alien.jpeg"),
+                              image3: Image.asset("assets/images/panda.jpeg"),
+                            ),
+                            CollectionList(
+                              title: "Collection",
+                              user:
+                                  "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+                              image1:
+                                  Image.asset("assets/images/flamingo.jpeg"),
+                              image2: Image.asset("assets/images/alien.jpeg"),
+                              image3: Image.asset("assets/images/panda.jpeg"),
+                            ),
+                          ],
                         ),
                       ),
                     ],

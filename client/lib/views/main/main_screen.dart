@@ -29,6 +29,7 @@ class MainScreen extends GetView<MainScreenController> {
     return Obx(
       () => Scaffold(
         extendBody: true,
+        backgroundColor: Colors.transparent,
         body: Stack(
           children: [
             pages[controller.tabIndex],
