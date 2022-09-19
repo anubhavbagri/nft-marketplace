@@ -12,4 +12,6 @@ class AppStrings {
 
   static const publicAdrInfo =
       'Public address has been copied to clipboard! It would be required to get Test Matic ✨\n\nP.S. Click on the address to copy it again';
+
+  static const checkInternet = 'Please check your internet connectivity!';
 }
