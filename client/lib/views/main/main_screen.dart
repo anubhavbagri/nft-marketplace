@@ -96,26 +96,18 @@ class MainScreen extends GetView<MainScreenController> {
           child: AnimateIcons(
             startIcon: Icons.add,
             endIcon: Icons.close,
-            // size: 100.0,
             controller: AnimateIconController(),
-            // add this tooltip for the start icon
             startTooltip: 'Icons.add_circle',
-            // add this tooltip for the end icon
             endTooltip: 'Icons.add_circle_outline',
-            // size: 60.0,
             onStartIconPress: () {
               controller.openModal = !controller.openModal;
-              print(
-                  "--------------------------------------------------------------------------openModal: ${controller.openModal}");
-              // print("Clicked on Add Icon");
               return true;
             },
             onEndIconPress: () {
               controller.openModal = !controller.openModal;
-              // print("Clicked on Close Icon");
               return true;
             },
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             startIconColor: AppColors.white,
             endIconColor: AppColors.white,
             clockwise: false,
