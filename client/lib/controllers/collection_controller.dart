@@ -13,6 +13,14 @@ class CollectionController extends GetxController {
   get pickedImagePath => _pickedImagePath.value;
   set pickedImagePath(value) => _pickedImagePath.value = value;
 
+  final TextEditingController name = TextEditingController();
+  final TextEditingController description = TextEditingController();
+  final TextEditingController collection = TextEditingController();
+
+  final _lastCollectionName = ''.obs;
+  get lastCollectionName => _lastCollectionName.value;
+  set lastCollectionName(value) => _lastCollectionName.value = value;
+
   CollectionStatus state = CollectionStatus.empty;
   String errMessage = '';
 
@@ -38,7 +46,7 @@ class CollectionController extends GetxController {
     if (image != null) {
       pickedImagePath = image.path;
       uploadImage(pickedImagePath);
-      Get.toNamed('create-collection');
+      Get.toNamed('/create-nft');
     }
   }
 
