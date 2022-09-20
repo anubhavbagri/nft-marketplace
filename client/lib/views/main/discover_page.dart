@@ -1,9 +1,11 @@
 import 'package:client/controllers/wallet_controller.dart';
 import 'package:client/themes/app_colors.dart';
+import 'package:client/themes/app_dimensions.dart';
 import 'package:client/themes/app_text_styles.dart';
 import 'package:client/themes/background.dart';
 import 'package:client/utils/size_config.dart';
 import 'package:client/widgets/collection_list.dart';
+import 'package:client/widgets/nft_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -76,65 +78,100 @@ class DiscoverPage extends StatelessWidget {
               ]),
           body: SingleChildScrollView(
             child: SafeArea(
-              child: Column(children: [
-                Container(
-                  height: SizeConfig.safeVertical! * 0.4,
-                  width: SizeConfig.safeHorizontal! * 1,
-                  // color: Colors.black,
-                  color: Colors.transparent,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                        child: Text(
-                          "Top Collections",
-                          // textAlign: TextAlign.start,
-                          style: AppTextStyles.h4().copyWith(
-                            fontFamily: AppTextStyles.gilroyMedium,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: SizeConfig.safeVertical! * 0.4,
+                    width: SizeConfig.safeHorizontal! * 1,
+                    // color: Colors.black,
+                    color: Colors.transparent,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                          child: Text(
+                            "Top Collections",
+                            // textAlign: TextAlign.start,
+                            style: AppTextStyles.h4().copyWith(
+                              fontFamily: AppTextStyles.gilroyMedium,
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(40, 20, 10, 0),
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: <CollectionList>[
-                            CollectionList(
-                              title: "Collection",
-                              user:
-                                  "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
-                              image1:
-                                  Image.asset("assets/images/flamingo.jpeg"),
-                              image2: Image.asset("assets/images/alien.jpeg"),
-                              image3: Image.asset("assets/images/panda.jpeg"),
-                            ),
-                            CollectionList(
-                              title: "Collection",
-                              user:
-                                  "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
-                              image1:
-                                  Image.asset("assets/images/flamingo.jpeg"),
-                              image2: Image.asset("assets/images/alien.jpeg"),
-                              image3: Image.asset("assets/images/panda.jpeg"),
-                            ),
-                            CollectionList(
-                              title: "Collection",
-                              user:
-                                  "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
-                              image1:
-                                  Image.asset("assets/images/flamingo.jpeg"),
-                              image2: Image.asset("assets/images/alien.jpeg"),
-                              image3: Image.asset("assets/images/panda.jpeg"),
-                            ),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(40, 20, 10, 0),
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: <CollectionList>[
+                              CollectionList(
+                                title: "Collection",
+                                user:
+                                    "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+                                image1:
+                                    Image.asset("assets/images/flamingo.jpeg"),
+                                image2: Image.asset("assets/images/alien.jpeg"),
+                                image3: Image.asset("assets/images/panda.jpeg"),
+                              ),
+                              CollectionList(
+                                title: "Collection",
+                                user:
+                                    "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+                                image1:
+                                    Image.asset("assets/images/flamingo.jpeg"),
+                                image2: Image.asset("assets/images/alien.jpeg"),
+                                image3: Image.asset("assets/images/panda.jpeg"),
+                              ),
+                              CollectionList(
+                                title: "Collection",
+                                user:
+                                    "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+                                image1:
+                                    Image.asset("assets/images/flamingo.jpeg"),
+                                image2: Image.asset("assets/images/alien.jpeg"),
+                                image3: Image.asset("assets/images/panda.jpeg"),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      NftView(
+                          image: Image.asset("assets/images/flamingo.jpeg"),
+                          creator: "Beeple",
+                          subtitle: "Nirvana",
+                          title: "Flocking with the flamingos",
+                          likes: "1.2k",
+                          creatorImage:
+                              Image.asset("assets/images/panda.jpeg")),
+                      AppDimensions.hSizedBox2,
+                      NftView(
+                          image: Image.asset("assets/images/panda.jpeg"),
+                          creator: "Beeple",
+                          subtitle: "Nirvana",
+                          title: "Panda boi",
+                          likes: "1.2k",
+                          creatorImage:
+                              Image.asset("assets/images/alien.jpeg")),
+                      AppDimensions.hSizedBox2,
+                      NftView(
+                          image: Image.asset("assets/images/alien.jpeg"),
+                          creator: "Beeple",
+                          subtitle: "Nirvana",
+                          title: "Alien Amigos",
+                          likes: "1.2k",
+                          creatorImage:
+                              Image.asset("assets/images/flamingo.jpeg")),
                     ],
                   ),
-                )
-              ]),
+                  AppDimensions.hSizedBox3,
+                ],
+              ),
             ),
           ),
         ),
