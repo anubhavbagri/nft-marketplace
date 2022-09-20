@@ -61,6 +61,7 @@ dependencies:
   path:
   permission_handler: ^10.0.0
   image_picker: ^0.8.5+3
+  truncate: ^3.0.1
 
 flutter_icons:
   image_path_ios: 'assets/images/icon.png'
