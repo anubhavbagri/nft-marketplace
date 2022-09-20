@@ -111,28 +111,6 @@ class WalletPage extends GetView<WalletController> {
                                     ),
                                   ],
                                 ),
-                                // Align(
-                                //   alignment: Alignment.centerRight,
-                                //   child: ElevatedButton(
-                                //     style: ElevatedButton.styleFrom(
-                                //       fixedSize: Size(
-                                //           SizeConfig.safeHorizontal! * 0.1,
-                                //           SizeConfig.safeVertical! * 0),
-                                //       shape: RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.circular(8),
-                                //       ),
-                                //       backgroundColor: AppColors.tertiary,
-                                //     ),
-                                //     child: Text(
-                                //       'Copy',
-                                //       style: AppTextStyles.small().copyWith(
-                                //         fontFamily: AppTextStyles.gilroyBold,
-                                //         color: AppColors.secondary,
-                                //       ),
-                                //     ),
-                                //     onPressed: () {},
-                                //   ),
-                                // ),
                                 // AppDimensions.hSizedBox1,
                                 Row(
                                   mainAxisAlignment:
