@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:client/controllers/collection_controller.dart';
+import 'package:client/controllers/nft_controller.dart';
 import 'package:client/themes/app_colors.dart';
 import 'package:client/themes/app_dimensions.dart';
 import 'package:client/themes/app_text_styles.dart';
@@ -12,7 +12,7 @@ import 'package:client/widgets/text_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CreateNFTPage extends GetView<CollectionController> {
+class CreateNFTPage extends GetView<NFTController> {
   const CreateNFTPage({Key? key}) : super(key: key);
 
   @override
@@ -57,16 +57,16 @@ class CreateNFTPage extends GetView<CollectionController> {
                 ),
                 TextBox(
                     placeholder: 'Name of your NFT',
-                    controller: controller.name),
+                    controller: controller.nameController),
                 AppDimensions.hSizedBox2,
                 TextBox(
                     placeholder: 'Description of your NFT',
-                    controller: controller.description),
+                    controller: controller.descriptionController),
                 AppDimensions.hSizedBox2,
                 TextBox(
                     placeholder:
                         'Collection Name: ${controller.lastCollectionName}',
-                    controller: controller.collection),
+                    controller: controller.collectionNameController),
                 AppDimensions.hSizedBox2,
                 Row(
                   children: [
@@ -130,7 +130,9 @@ class CreateNFTPage extends GetView<CollectionController> {
                   buttonText: 'Next',
                   width: double.infinity,
                   height: AppDimensions.primaryButtonHeight,
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.createNFT();
+                  },
                 )
               ],
             ),
