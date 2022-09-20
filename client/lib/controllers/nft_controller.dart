@@ -10,6 +10,7 @@ import 'package:client/utils/global_utils.dart';
 import 'package:client/utils/services/contract_service.dart';
 import 'package:client/utils/services/image_picker_service.dart';
 import 'package:client/utils/services/ipfs_service.dart';
+import 'package:client/views/others/loading_page.dart';
 import 'package:client/widgets/primary_button.dart';
 import 'package:client/widgets/text_box.dart';
 import 'package:flutter/material.dart';
@@ -195,7 +196,13 @@ class NFTController extends GetxController {
 
     WalletController.to.getTransactionFee(transaction);
 
-    Get.toNamed('/confirmation', arguments: nftMetadata);
+    // Get.toNamed('/confirmation', arguments: nftMetadata);
+
+    Get.to(
+      () => const LoadingPage(subtext: 'Minting your NFT ✨'),
+      transition: Transition.circularReveal,
+      duration: const Duration(milliseconds: 500),
+    );
 
     // Navigation.push(
     //   context,
@@ -218,9 +225,9 @@ class NFTController extends GetxController {
   Future<Transaction> buildTransaction(
     ListingInfo info,
   ) async {
-    // already deployed collection
+    // already deployed collection cAddress
     final contract = await _contractService
-        .loadCollectionContract('0x8beB71e16220E64E8576F0D741368B1F2C5f3F4D');
+        .loadCollectionContract('0xDb847D8d9aa3dFaaD0BDdc3B8672eaEBba0cdF67');
 
     print("-> -> ${contract.address}");
     print("-> -> ${contract.abi}");
