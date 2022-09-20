@@ -33,6 +33,7 @@ class CreateNFTPage extends GetView<CollectionController> {
               bottom: AppDimensions.heading1TextSize,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppDimensions.hSizedBox2,
                 Center(
@@ -54,14 +55,17 @@ class CreateNFTPage extends GetView<CollectionController> {
                 SizedBox(
                   height: SizeConfig.safeVertical! * 0.05,
                 ),
-                TextBox(placeholder: 'Name', controller: controller.name),
+                TextBox(
+                    placeholder: 'Name of your NFT',
+                    controller: controller.name),
                 AppDimensions.hSizedBox2,
                 TextBox(
-                    placeholder: 'Description',
+                    placeholder: 'Description of your NFT',
                     controller: controller.description),
                 AppDimensions.hSizedBox2,
                 TextBox(
-                    placeholder: 'Collection: ${controller.lastCollectionName}',
+                    placeholder:
+                        'Collection Name: ${controller.lastCollectionName}',
                     controller: controller.collection),
                 AppDimensions.hSizedBox2,
                 Row(

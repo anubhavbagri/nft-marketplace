@@ -20,7 +20,7 @@ class TextBox extends StatelessWidget {
     return TextFormField(
       maxLength: 100,
       controller: controller,
-      style: AppTextStyles.h5().copyWith(
+      style: AppTextStyles.body1().copyWith(
         fontFamily: AppTextStyles.gilroyMedium,
         color: AppColors.primary,
       ),
@@ -32,7 +32,7 @@ class TextBox extends StatelessWidget {
             vertical: SizeConfig.safeVertical! * .02,
             horizontal: SizeConfig.safeHorizontal! * .04),
         hintText: placeholder,
-        hintStyle: AppTextStyles.h5().copyWith(
+        hintStyle: AppTextStyles.body1().copyWith(
           fontFamily: AppTextStyles.gilroyMedium,
           color: AppColors.primary,
         ),
