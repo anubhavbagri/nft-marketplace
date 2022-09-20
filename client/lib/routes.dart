@@ -1,4 +1,5 @@
 import 'package:client/views/camera/camera_screen.dart';
+import 'package:client/views/collection/confirmation_page.dart';
 import 'package:client/views/collection/create_listing_page.dart';
 import 'package:client/views/collection/create_nft_page.dart';
 import 'package:client/views/main/discover_page.dart';
@@ -48,7 +49,7 @@ class AppRoutes {
         transitionDuration: const Duration(milliseconds: 500)),
     GetPage(
         name: '/confirmation',
-        page: () => const CreateNFTListingPage(),
+        page: () => const ConfirmationPage(),
         transition: Transition.fadeIn,
         transitionDuration: const Duration(milliseconds: 500)),
   ];
