@@ -21,7 +21,7 @@ class TextBox extends StatelessWidget {
       maxLength: 100,
       controller: controller,
       style: AppTextStyles.h5().copyWith(
-        fontFamily: AppTextStyles.gilroySemiBold,
+        fontFamily: AppTextStyles.gilroyMedium,
         color: AppColors.primary,
       ),
       decoration: InputDecoration(
