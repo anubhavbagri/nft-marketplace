@@ -1,4 +1,3 @@
-// import 'package:client/themes/app_colors.dart';
 import 'package:client/themes/app_dimensions.dart';
 import 'package:flutter/material.dart';
 
@@ -74,13 +73,4 @@ class AppTextStyles {
       fontFamily: gilroyRegular,
     );
   }
-
-  // static TextStyle link() {
-//   return TextStyle(
-//     fontSize: AppDimensions.body1TextSize,
-//     fontFamily: gilroyMedium,
-//     color: AppColors.primary,
-//     decoration: TextDecoration.underline,
-//   );
-// }
 }
