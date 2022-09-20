@@ -19,7 +19,7 @@ class AppDimensions {
   static final double buttonPaddingLeft = SizeConfig.safeHorizontal! * .08;
   static final double buttonPaddingRight = SizeConfig.safeHorizontal! * .08;
 
-  static final double paddingAllSides = SizeConfig.safeHorizontal! * .03;
+  static final double paddingAllSides = SizeConfig.safeHorizontal! * .04;
 
   static const double buttonBorderRadius = 10;
 

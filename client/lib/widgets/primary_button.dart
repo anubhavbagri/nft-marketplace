@@ -17,6 +17,8 @@ class PrimaryButton extends StatelessWidget {
   final double? iconSize;
   final Widget? widget;
   final Color? buttonColor;
+  final bool isLeftAligned;
+  final String? fontStyle;
 
   const PrimaryButton({
     super.key,
@@ -32,12 +34,15 @@ class PrimaryButton extends StatelessWidget {
     this.iconSize,
     this.widget,
     this.buttonColor,
+    this.fontStyle,
+    this.isLeftAligned = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
+        alignment: isLeftAligned ? Alignment.centerLeft : Alignment.center,
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius:
@@ -74,7 +79,7 @@ class PrimaryButton extends StatelessWidget {
             Text(
               buttonText,
               style: AppTextStyles.h5().copyWith(
-                fontFamily: AppTextStyles.gilroySemiBold,
+                fontFamily: fontStyle ?? AppTextStyles.gilroySemiBold,
                 color: buttonTextColor ?? AppColors.white,
               ),
             ),

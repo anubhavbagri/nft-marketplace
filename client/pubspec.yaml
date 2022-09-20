@@ -36,16 +36,39 @@ dependencies:
   get_storage: ^2.0.3
   # UI
   flutter_svg: ^1.1.5
+  glassmorphism: ^3.0.0
+  iconsax: ^0.0.8
+  google_nav_bar: ^5.0.6
+  sliding_switch: ^1.1.0
+  slide_to_confirm: ^1.1.0
   flutter_native_splash: ^2.2.9
-
+  # animation
+  lottie: ^1.4.3
+  animate_icons: ^2.0.0
+  # web3
+  web3dart: ^2.4.1
+  walletconnect_dart: ^0.0.11
+  walletconnect_secure_storage: ^1.0.0
+  # tools
+  http: ^0.13.5
+  url_launcher: ^6.1.5
+  internet_connection_checker: ^0.0.1+4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  camera: ^0.10.0+1
+  video_player: ^2.4.7
+  path_provider:
+  path:
+  permission_handler: ^10.0.0
+  image_picker: ^0.8.5+3
+  truncate: ^3.0.1
+
 flutter_icons:
-  image_path_ios: "assets/images/icon.png"
-  image_path_android: "assets/images/icon-transparent.png"
+  image_path_ios: 'assets/images/icon.png'
+  image_path_android: 'assets/images/icon-transparent.png'
   android: true
   ios: true
   remove_alpha_ios: true
@@ -66,7 +89,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -77,6 +99,7 @@ flutter:
     - assets/
     - assets/fonts/
     - assets/images/
+    - assets/abi/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
