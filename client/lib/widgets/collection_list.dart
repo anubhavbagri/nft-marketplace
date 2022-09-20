@@ -55,7 +55,7 @@ class _CollectionListState extends State<CollectionList> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10, right: 10),
             child: IconButton(
               icon: isFavorited
                   ? const Icon(

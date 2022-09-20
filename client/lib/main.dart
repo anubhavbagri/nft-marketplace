@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'exibit',
-      initialRoute: "/main-screen",
+      initialRoute: "/",
       getPages: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fadeIn,
