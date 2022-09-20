@@ -7,6 +7,7 @@ import 'package:client/themes/app_text_styles.dart';
 import 'package:client/themes/background.dart';
 import 'package:client/utils/size_config.dart';
 import 'package:client/widgets/primary_button.dart';
+import 'package:client/widgets/properties_chip.dart';
 import 'package:client/widgets/text_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,8 +27,11 @@ class CreateNFTPage extends GetView<CollectionController> {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-            padding:
-                EdgeInsets.symmetric(horizontal: AppDimensions.paddingAllSides),
+            padding: EdgeInsets.only(
+              left: AppDimensions.paddingAllSides,
+              right: AppDimensions.paddingAllSides,
+              bottom: AppDimensions.heading1TextSize,
+            ),
             child: Column(
               children: [
                 AppDimensions.hSizedBox2,
@@ -56,20 +60,65 @@ class CreateNFTPage extends GetView<CollectionController> {
                     placeholder: 'Description',
                     controller: controller.description),
                 AppDimensions.hSizedBox2,
-                PrimaryButton(
-                  buttonText: 'Properties',
-                  buttonColor: Colors.black.withOpacity(0.5),
-                  buttonTextColor: AppColors.primary,
-                  width: double.infinity,
-                  height: AppDimensions.primaryButtonHeight,
-                  isLeftAligned: true,
-                  fontStyle: AppTextStyles.gilroyMedium,
-                  onPressed: () {},
-                ),
-                AppDimensions.hSizedBox2,
                 TextBox(
                     placeholder: 'Collection: ${controller.lastCollectionName}',
                     controller: controller.collection),
+                AppDimensions.hSizedBox2,
+                Row(
+                  children: [
+                    AppDimensions.wSizedBox2,
+                    Text(
+                      'Properties :',
+                      style: AppTextStyles.h5().copyWith(
+                        fontFamily: AppTextStyles.gilroyMedium,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                    Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        controller.addProperty();
+                      },
+                      child: Card(
+                        color: Colors.black.withOpacity(0.5),
+                        elevation: 0.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.all(SizeConfig.safeHorizontal! * .01),
+                          child: Icon(
+                            Icons.add,
+                            color: AppColors.primary,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                AppDimensions.hSizedBox2,
+                Obx(
+                  () => Align(
+                    alignment: Alignment.topLeft,
+                    child: Wrap(
+                      spacing: SizeConfig.safeHorizontal! * .025,
+                      runSpacing: SizeConfig.safeVertical! * 0.02,
+                      children: controller.properties.value
+                          .map<Widget>(
+                            (e) => PropertiesChip(
+                              label: e['type'],
+                              value: e['value'],
+                              percent: '',
+                              onPressed: () {
+                                controller.properties.remove(e);
+                              },
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: SizeConfig.safeVertical! * 0.04,
                 ),
