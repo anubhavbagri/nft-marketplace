@@ -1,7 +1,7 @@
 import 'package:animate_icons/animate_icons.dart';
 import 'package:camera/camera.dart';
-import 'package:client/controllers/collection_controller.dart';
 import 'package:client/controllers/main_screen_controller.dart';
+import 'package:client/controllers/nft_controller.dart';
 import 'package:client/controllers/wallet_controller.dart';
 import 'package:client/controllers/welcome_controller.dart';
 import 'package:client/themes/app_colors.dart';
@@ -61,7 +61,7 @@ class MainScreen extends GetView<MainScreenController> {
                                     height: SizeConfig.safeVertical! * 0.06,
                                     buttonColor: AppColors.black,
                                     onPressed: () async {
-                                      CollectionController.to.pickImage();
+                                      NFTController.to.pickImage();
                                     }),
                                 PrimaryButton(
                                   buttonText: "Capture Now",

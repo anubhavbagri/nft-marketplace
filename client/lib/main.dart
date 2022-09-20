@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
-import 'package:client/bindings/collection_binding.dart';
 import 'package:client/bindings/main_screen_binding.dart';
+import 'package:client/bindings/nft_binding.dart';
 import 'package:client/bindings/wallet_binding.dart';
 import 'package:client/bindings/welcome_binding.dart';
 import 'package:client/routes.dart';
@@ -36,7 +36,7 @@ void loadDependencies() {
   WelcomeBinding().dependencies();
   WalletBinding().dependencies();
   MainScreenBinding().dependencies();
-  CollectionBinding().dependencies();
+  NFTBinding().dependencies();
 }
 
 // Future<void> loadServices() async {}
