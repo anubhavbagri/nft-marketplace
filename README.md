@@ -52,7 +52,7 @@ _exibit_ will use filecoin and polygon to quickly convert an image into an nft o
 - The artist shall be able to promote their works by paying a minimal advertising fees to the platform and their work will be promoted as sponsored or advertised content. 
 
 ## 🤝 Team 
-- [Anubhav Bagri](https://anubhavbagri.com) : Team lead & Full stack flutter developer
+- [Anubhav Bagri](https://anubhavbagri.com) - Team lead & Full stack flutter developer
 - [Aviral Raj](https://www.linkedin.com/in/aviral-raj-5a9a04184/) - Blockchain developer
 - [Shuchit Pant](https://shuchitpant.github.io/PersonalPortfolio/) - UI/UX Designer
 - [Snehal Raj](https://www.linkedin.com/in/snehal-raj-darkshark/) - Flutter developer
