@@ -1,12 +1,23 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.6;
 
-import "./createCollection.sol";
+import "./CustomCollection.sol";
 
-contract Exibit {
+contract Marketplace {
     // ** User ** //
 
-    // On user creation
+    // To store user data
+    struct User {
+        string name;
+        string image;
+        string twitterUrl;
+        string websiteUrl;
+    }
+
+    // // To store users (address => User)
+    mapping(address => User) public users;
+
+    // On user creation/updation
     event UserCreated(
         address uAddress,
         string name,
@@ -22,8 +33,8 @@ contract Exibit {
         string memory twitterUrl_,
         string memory websiteUrl_
     ) public {
-        // Map User to address
-        // users[msg.sender] = User(name_, metadata_);
+        // Map address to User
+        users[msg.sender] = User(name_, image_, twitterUrl_, websiteUrl_);
 
         // Log event to subgraph
         emit UserCreated(msg.sender, name_, image_, twitterUrl_, websiteUrl_);
@@ -48,7 +59,8 @@ contract Exibit {
         string memory metadata_
     ) public {
         address cAddress = address(
-            new CreateCollection(name_, symbol_, metadata_, msg.sender)
+            // Deploy new collection contract
+            new CustomCollection(name_, symbol_, metadata_, msg.sender)
         );
 
         // Log event to subgraph
@@ -56,6 +68,7 @@ contract Exibit {
     }
 
     // To buy fixed price nfts
+    // CustomCollection - buyFixedPriceNft() calls this function
     function marketPlaceTransferFrom(
         address cAddress,
         address nftOwner,
@@ -68,14 +81,15 @@ contract Exibit {
             "Marketplace : marketPlaceTransferFrom -> Caller is not contract"
         );
 
-        CreateCollection(cAddress).safeTransferFrom(
+        CustomCollection(cAddress).safeTransferFrom(
             nftOwner,
             newOwner,
             tokenId
         );
     }
 
-    // To receive ether
-    // Function to receive Ether. msg.data must be empty
+    // Function to receive funds.
+    // Called when transfer is executed on this contract address
+    // msg.data must be empty
     receive() external payable {}
 }

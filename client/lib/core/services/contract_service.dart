@@ -62,4 +62,4 @@ class ContractService {
         'CustomERC721Collection',
         contractAddress,
       );
-}
+}   

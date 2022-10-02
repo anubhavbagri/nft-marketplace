@@ -1,39 +1,41 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.6;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./Exibit.sol";
 
-enum ListingType {
+// NFTs can be listed for fixed price or bidding
+enum SellType {
     FixedPrice,
     Bidding
 }
 
-contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
-    // Maintaining a counter of no of nfts in collection
+contract CustomCollection is ReentrancyGuard, ERC721URIStorage {
+    // Maintaining a counter of number of nfts in collection
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    // Store collection owner
-    address payable public owner;
+    // Store collection owner/creator
+    address payable public creator;
 
-    // Store collection Metadata
-    string collectionMetadataURI;
+    // Store collection Metadata URI
+    string public collectionMetadataURI;
 
-    address payable exibitMarketAddress;
+    // Store Marketplace address
+    address payable public marketPlaceAddress;
 
     // On Collection creation
     constructor(
         string memory name_,
         string memory symbol_,
         string memory collectionMetadata_,
-        address owner_
+        address creator_
     ) ERC721(name_, symbol_) {
-        owner = payable(owner_);
+        creator = payable(creator_);
 
-        exibitMarketAddress = payable(msg.sender);
+        marketPlaceAddress = payable(msg.sender);
 
         collectionMetadataURI = collectionMetadata_;
     }
@@ -41,9 +43,11 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
     // ** NFT ** //
 
     // Required NFT data in contract
+    // Other constant data is accessed from event logs by subgraph
     struct NFT {
-        bool saleStatus;
-        ListingType listingType;
+        bool forSale;
+        SellType sellType;
+        // incase of bidding type NFT price indicates minimum bid
         uint256 price;
         uint256 royalty;
     }
@@ -52,7 +56,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
     mapping(uint256 => NFT) public nfts;
 
     // To store bids (tokenId => (address => price))
-    mapping(uint256 => mapping(address => uint256)) bids;
+    mapping(uint256 => mapping(address => uint256)) public bids;
 
     // tokenId to secret
     mapping(uint256 => string) unlockableContent;
@@ -88,7 +92,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
     // On bid canceled
     event BidCanceled(address cAddress, uint256 tokenId, address from);
 
-    // Checks if tokenId exists
+    // Checks if NFT with given tokenId exists
     modifier tokenExists(uint256 tokenId) {
         require(
             tokenId <= _tokenIds.current(),
@@ -99,7 +103,6 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
 
     // Checks if owner of tokenId is caller
     modifier callerIsNftOwner(uint256 tokenId) {
-        // Only owner of token can access secret
         require(
             msg.sender == ownerOf(tokenId),
             "CustomCollection -> Caller is not nft owner"
@@ -109,7 +112,6 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
 
     // Checks if owner of tokenId is not caller
     modifier callerIsNotNftOwner(uint256 tokenId) {
-        // Only owner of token can access secret
         require(
             msg.sender != ownerOf(tokenId),
             "CustomCollection -> Caller is nft owner"
@@ -117,10 +119,10 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         _;
     }
 
-    // Checks if NFT is listed for bids
+    // Checks if NFT is listed as open for bids
     modifier isBiddable(uint256 tokenId) {
         require(
-            nfts[tokenId].listingType == ListingType.Bidding,
+            nfts[tokenId].sellType == SellType.Bidding,
             "CustomCollection -> NFT doesn't allow bidding"
         );
         _;
@@ -132,14 +134,15 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         string memory image_,
         string memory properties_,
         string memory metadata_,
-        bool saleStatus,
+        bool forSale_,
         bool isFixedPrice_,
         uint256 price_,
         uint256 royalty_,
         string memory unlockableString_
     ) public {
+        // Only collection owner can mint NFTs
         require(
-            msg.sender == owner,
+            msg.sender == creator,
             "CustomCollection : mintToken -> Not collection owner"
         );
 
@@ -156,7 +159,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         // But for fixed price nft transfer can be only done by marketplace
         if (isFixedPrice_) {
             // ERC721 approve marketplace to manage owner's current token
-            approve(exibitMarketAddress, tokenId);
+            approve(marketPlaceAddress, tokenId);
         }
 
         // Set unlockableContent
@@ -164,10 +167,8 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
 
         // Store nft in marketplace
         nfts[tokenId] = NFT({
-            saleStatus: saleStatus,
-            listingType: isFixedPrice_
-                ? ListingType.FixedPrice
-                : ListingType.Bidding,
+            forSale: forSale_,
+            sellType: isFixedPrice_ ? SellType.FixedPrice : SellType.Bidding,
             price: price_,
             royalty: royalty_
         });
@@ -192,7 +193,35 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         );
     }
 
+    // For minting multiple NFTs in batch
+    function mintBatch(
+        string[] memory names,
+        string[] memory images,
+        string[] memory properties,
+        string[] memory metadatas,
+        bool forSale_,
+        bool isFixedPrice_,
+        uint256 price_,
+        uint256 royalty_,
+        uint256 nItems
+    ) public {
+        for (uint256 i = 0; i < nItems; i++) {
+            mintNFT(
+                names[i],
+                images[i],
+                properties[i],
+                metadatas[i],
+                forSale_,
+                isFixedPrice_,
+                price_,
+                royalty_,
+                "Never gonna give you up, Never gonna let you down"
+            );
+        }
+    }
+
     // Buy Fixed Price NFT
+    // NonReentrant modifier is used to prevent any Re-Entrancy hacks
     function buyFixedPriceNFT(uint256 tokenId)
         public
         payable
@@ -203,11 +232,11 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         NFT memory nft = nfts[tokenId];
 
         require(
-            nft.listingType == ListingType.FixedPrice,
+            nft.sellType == SellType.FixedPrice,
             "CustomCollection : placeBid -> NFT is listed for bids only"
         );
         require(
-            nft.saleStatus,
+            nft.forSale,
             "CustomCollection : buyFixedPriceNFT -> NFT is not for sale"
         );
         require(
@@ -215,30 +244,29 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
             "CustomCollection : buyFixedPriceNFT -> Please send exact amount as price"
         );
 
-        // Tranfer eth to owner as royalty
-        owner.transfer(((nft.price * nft.royalty) / 100));
+        // Tranfer funds to creator as royalty
+        creator.transfer(((nft.price * nft.royalty) / 100));
 
-        // Marketplace gets 1% commission
-        exibitMarketAddress.transfer(nft.price / 100);
-
-        // Tranfer remaining eth to current owner
+        // Tranfer remaining funds to current owner
         payable(ownerOf(tokenId)).transfer(
-            (nft.price * (100 - nft.royalty - 1)) / 100
+            (nft.price * (100 - nft.royalty)) / 100
         );
 
         // Transfer nft to msg.sender
-        Exibit(exibitMarketAddress).marketPlaceTransferFrom(
+        Marketplace(marketPlaceAddress).marketPlaceTransferFrom(
             address(this),
             ownerOf(tokenId),
             msg.sender,
             tokenId
         );
 
-        // New owner has to approve marketplace to manage his token
-        approve(exibitMarketAddress, tokenId);
+        // New owner has to approve marketplace to manage their token
+        approve(marketPlaceAddress, tokenId);
 
-        // Unlist item
-        nfts[tokenId].saleStatus = false;
+        // After buying the NFT is by default
+        // unlisted from sale
+        // To list for sale call modifyListingMechanism
+        nfts[tokenId].forSale = false;
 
         // Log event to subgraph
         emit NFTEvent(
@@ -251,7 +279,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         );
     }
 
-    // Places bid. Recieves eth from user which are held by the contract
+    // Places bid. Recieves funds from user which are held by the contract
     function placeBid(uint256 tokenId)
         public
         payable
@@ -275,7 +303,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         emit BidPlaced(address(this), tokenId, msg.sender, msg.value / 1e12);
     }
 
-    // Cancels bid
+    // Cancels bid by sender on item with tokenId
     function cancelBid(uint256 tokenId)
         public
         tokenExists(tokenId)
@@ -291,7 +319,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         // Remove bid on chain
         bids[tokenId][msg.sender] = 0;
 
-        // Transfer bidder's eth back
+        // Transfer bidder's funds back
         payable(msg.sender).transfer(bidAmount);
 
         // Log event to subgraph
@@ -299,6 +327,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
     }
 
     // Sell NFT to a bidder
+    // NonReentrant modifier is used to prevent any Re-Entrancy hacks
     function sellBiddingNFT(uint256 tokenId, address to_)
         public
         nonReentrant
@@ -311,15 +340,12 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
             "CustomCollection -> No bid by user 'to_'"
         );
 
-        // Tranfer eth to owner as royalty
-        owner.transfer(((bids[tokenId][to_] * nfts[tokenId].royalty) / 100));
+        // Tranfer funds to creator as royalty
+        creator.transfer(((bids[tokenId][to_] * nfts[tokenId].royalty) / 100));
 
-        // Marketplace gets 1% commission
-        exibitMarketAddress.transfer(bids[tokenId][to_] / 100);
-
-        // Tranfer remaining eth to current owner
+        // Tranfer remaining funds to current owner
         payable(ownerOf(tokenId)).transfer(
-            (bids[tokenId][to_] * (100 - nfts[tokenId].royalty - 1)) / 100
+            (bids[tokenId][to_] * (100 - nfts[tokenId].royalty)) / 100
         );
 
         // Transfer nft to msg.sender
@@ -353,7 +379,7 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
     function modifyListingMechanism(
         uint256 tokenId,
         bool setFixPrice,
-        bool saleStatus,
+        bool forSale,
         uint256 newPrice
     )
         public
@@ -362,14 +388,14 @@ contract CreateCollection is ReentrancyGuard, ERC721URIStorage {
         callerIsNftOwner(tokenId)
     {
         // For fixed price tokens
-        if (nfts[tokenId].listingType == ListingType.FixedPrice) {
+        if (nfts[tokenId].sellType == SellType.FixedPrice) {
             if (!setFixPrice) {
                 // Convert to bidding and change price
-                nfts[tokenId].listingType = ListingType.Bidding;
+                nfts[tokenId].sellType = SellType.Bidding;
                 nfts[tokenId].price = newPrice;
             } else {
-                // Change price and saleStatus status
-                nfts[tokenId].saleStatus = saleStatus;
+                // Change price and forSale status
+                nfts[tokenId].forSale = forSale;
                 nfts[tokenId].price = newPrice;
             }
         }
