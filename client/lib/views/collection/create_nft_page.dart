@@ -1,19 +1,17 @@
 import 'dart:io';
 
-import 'package:client/controllers/nft_controller.dart';
-import 'package:client/themes/app_colors.dart';
-import 'package:client/themes/app_dimensions.dart';
-import 'package:client/themes/app_text_styles.dart';
-import 'package:client/themes/background.dart';
-import 'package:client/utils/size_config.dart';
-import 'package:client/widgets/primary_button.dart';
-import 'package:client/widgets/properties_chip.dart';
-import 'package:client/widgets/text_box.dart';
+import 'package:client/core/themes/app_colors.dart';
+import 'package:client/core/themes/app_dimensions.dart';
+import 'package:client/core/themes/app_text_styles.dart';
+import 'package:client/core/themes/background.dart';
+import 'package:client/core/utils/size_config.dart';
+import 'package:client/core/widgets/primary_button.dart';
+import 'package:client/core/widgets/text_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CreateNFTPage extends GetView<NFTController> {
-  const CreateNFTPage({Key? key}) : super(key: key);
+class CreateNFTPage {
+  // const CreateNFTPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +44,7 @@ class CreateNFTPage extends GetView<NFTController> {
                         AppDimensions.buttonBorderRadius,
                       ),
                       image: DecorationImage(
-                        image: FileImage(File(controller.pickedImagePath!)),
+                        image: FileImage(File('controller.pickedImagePath')),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -57,16 +55,15 @@ class CreateNFTPage extends GetView<NFTController> {
                 ),
                 TextBox(
                     placeholder: 'Name of your NFT',
-                    controller: controller.nameController),
+                    controller: TextEditingController()),
                 AppDimensions.hSizedBox2,
                 TextBox(
                     placeholder: 'Description of your NFT',
-                    controller: controller.descriptionController),
+                    controller: TextEditingController()),
                 AppDimensions.hSizedBox2,
                 TextBox(
-                    placeholder:
-                        'Collection Name: ${controller.lastCollectionName}',
-                    controller: controller.collectionNameController),
+                    placeholder: 'Collection Name: lastCollectionName',
+                    controller: TextEditingController()),
                 AppDimensions.hSizedBox2,
                 Row(
                   children: [
@@ -81,7 +78,7 @@ class CreateNFTPage extends GetView<NFTController> {
                     Spacer(),
                     GestureDetector(
                       onTap: () {
-                        controller.addProperty();
+                        // controller.addProperty();
                       },
                       child: Card(
                         color: Colors.black.withOpacity(0.5),
@@ -108,18 +105,18 @@ class CreateNFTPage extends GetView<NFTController> {
                     child: Wrap(
                       spacing: SizeConfig.safeHorizontal! * .025,
                       runSpacing: SizeConfig.safeVertical! * 0.02,
-                      children: controller.properties.value
-                          .map<Widget>(
-                            (e) => PropertiesChip(
-                              label: e['type'],
-                              value: e['value'],
-                              percent: '',
-                              onPressed: () {
-                                controller.properties.remove(e);
-                              },
-                            ),
-                          )
-                          .toList(),
+                      // children: controller.properties.value
+                      //     .map<Widget>(
+                      //       (e) => PropertiesChip(
+                      //         label: e['type'],
+                      //         value: e['value'],
+                      //         percent: '',
+                      //         onPressed: () {
+                      //           // controller.properties.remove(e);
+                      //         },
+                      //       ),
+                      //     )
+                      //     .toList(),
                     ),
                   ),
                 ),
@@ -131,7 +128,7 @@ class CreateNFTPage extends GetView<NFTController> {
                   width: double.infinity,
                   height: AppDimensions.primaryButtonHeight,
                   onPressed: () {
-                    controller.createNFT();
+                    // controller.createNFT();
                   },
                 )
               ],

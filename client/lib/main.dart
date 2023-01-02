@@ -1,10 +1,5 @@
 import 'package:camera/camera.dart';
-import 'package:client/bindings/main_screen_binding.dart';
-import 'package:client/bindings/nft_binding.dart';
-import 'package:client/bindings/wallet_binding.dart';
-import 'package:client/bindings/welcome_binding.dart';
-import 'package:client/routes.dart';
-import 'package:client/themes/app_themes.dart';
+import 'package:client/core/themes/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -14,7 +9,6 @@ List<CameraDescription> cameras = [];
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  loadDependencies();
   // await loadServices();
   await GetStorage.init();
   try {
@@ -32,15 +26,6 @@ Future<void> main() async {
   );
 }
 
-void loadDependencies() {
-  WelcomeBinding().dependencies();
-  WalletBinding().dependencies();
-  MainScreenBinding().dependencies();
-  NFTBinding().dependencies();
-}
-
-// Future<void> loadServices() async {}
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -50,7 +35,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'exibit',
       initialRoute: "/",
-      getPages: AppRoutes.routes,
+      // getPages: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 500),

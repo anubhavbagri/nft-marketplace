@@ -1,20 +1,19 @@
 import 'dart:io';
 
-import 'package:client/controllers/nft_controller.dart';
-import 'package:client/themes/app_colors.dart';
-import 'package:client/themes/app_dimensions.dart';
-import 'package:client/themes/app_text_styles.dart';
-import 'package:client/themes/background.dart';
-import 'package:client/utils/size_config.dart';
-import 'package:client/widgets/primary_button.dart';
-import 'package:client/widgets/text_box.dart';
+import 'package:client/core/themes/app_colors.dart';
+import 'package:client/core/themes/app_dimensions.dart';
+import 'package:client/core/themes/app_text_styles.dart';
+import 'package:client/core/themes/background.dart';
+import 'package:client/core/utils/size_config.dart';
+import 'package:client/core/widgets/primary_button.dart';
+import 'package:client/core/widgets/text_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 
-class CreateNFTListingPage extends GetView<NFTController> {
-  const CreateNFTListingPage({Key? key}) : super(key: key);
+class CreateNFTListingPage {
+  // const CreateNFTListingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +63,10 @@ class CreateNFTListingPage extends GetView<NFTController> {
                   Obx(
                     () => Center(
                       child: SlidingSwitch(
-                        value: controller.isFixed,
+                        value: false,
                         width: SizeConfig.safeHorizontal! * 0.85,
                         onChanged: (bool value) {
-                          controller.isFixed = value;
+                          // controller.isFixed = value;
                         },
                         height: SizeConfig.safeVertical! * 0.06,
                         animationDuration: const Duration(milliseconds: 100),
@@ -88,10 +87,10 @@ class CreateNFTListingPage extends GetView<NFTController> {
                   Obx(
                     () => Center(
                       child: SlidingSwitch(
-                        value: controller.forSale,
+                        value: false,
                         width: SizeConfig.safeHorizontal! * 0.85,
                         onChanged: (bool value) {
-                          controller.forSale = value;
+                          // controller.forSale = value;
                         },
                         height: SizeConfig.safeVertical! * 0.06,
                         animationDuration: const Duration(milliseconds: 100),
@@ -111,11 +110,11 @@ class CreateNFTListingPage extends GetView<NFTController> {
                   AppDimensions.hSizedBox3,
                   TextBox(
                       placeholder: 'Royalties in %',
-                      controller: controller.royaltiesController),
+                      controller: TextEditingController()),
                   AppDimensions.hSizedBox2,
                   TextBox(
                       placeholder: 'Set Price',
-                      controller: controller.priceController),
+                      controller: TextEditingController()),
                   // AppDimensions.hSizedBox2,
                   // TextBox(
                   //     placeholder: 'Price in MATIC',
@@ -126,7 +125,7 @@ class CreateNFTListingPage extends GetView<NFTController> {
                       width: double.infinity,
                       height: AppDimensions.primaryButtonHeight,
                       onPressed: () {
-                        controller.mintNFT(nftMetadata);
+                        // controller.mintNFT(nftMetadata);
                       }),
                   AppDimensions.hSizedBox3,
                   Center(

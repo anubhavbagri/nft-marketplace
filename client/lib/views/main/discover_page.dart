@@ -1,12 +1,11 @@
-import 'package:client/controllers/welcome_controller.dart';
-import 'package:client/themes/app_colors.dart';
-import 'package:client/themes/app_dimensions.dart';
-import 'package:client/themes/app_text_styles.dart';
-import 'package:client/themes/background.dart';
-import 'package:client/utils/global_utils.dart';
-import 'package:client/utils/size_config.dart';
-import 'package:client/widgets/collection_list.dart';
-import 'package:client/widgets/nft_view.dart';
+import 'package:client/core/themes/app_colors.dart';
+import 'package:client/core/themes/app_dimensions.dart';
+import 'package:client/core/themes/app_text_styles.dart';
+import 'package:client/core/themes/background.dart';
+import 'package:client/core/utils/global_utils.dart';
+import 'package:client/core/utils/size_config.dart';
+import 'package:client/core/widgets/collection_list.dart';
+import 'package:client/core/widgets/nft_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -52,7 +51,8 @@ class DiscoverPage extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    formatAddress(WelcomeController.to.account),
+                                    formatAddress(
+                                        'WalletController.to.publicAdr'),
                                     style: AppTextStyles.h5().copyWith(
                                       fontFamily: AppTextStyles.gilroyBold,
                                       color: AppColors.secondary,
@@ -76,7 +76,7 @@ class DiscoverPage extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    '${WelcomeController.to.balance} MAT',
+                                    '${0.0000} MAT',
                                     style: AppTextStyles.h5().copyWith(
                                       fontFamily: AppTextStyles.gilroyBold,
                                       color: AppColors.secondary,
